@@ -1,8 +1,6 @@
 ﻿# NetApp ONTAP Associate – Learning Path Notes
 
-This repository contains structured documentation and study notes based on the official NetApp ONTAP Associate learning path.
-
-The goal is to organize concepts, architecture explanations, and technical notes in a clear and structured format while progressing through the official training modules.
+This repository contains study notes based on the official NetApp ONTAP Associate learning path.
 
 ---
 
@@ -43,13 +41,3 @@ Introduction to NetApp BlueXP and hybrid cloud management.
 ## 08 – Cloud Volumes ONTAP Fundamentals
 
 Overview of Cloud Volumes ONTAP and ONTAP deployments in public cloud environments.
-
----
-
-# Purpose of This Repository
-
-This repository serves as:
-
-* a structured study resource for the ONTAP Associate learning path
-* a personal technical knowledge base
-* a reference for ONTAP architecture and concepts
