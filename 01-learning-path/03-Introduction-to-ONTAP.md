@@ -1,23 +1,4 @@
 # Introduction to ONTAP
-> **NetApp Course** | STRSW-WBM-INTONTAP | Duration: 12 minutes | Format: Web-based training
-
----
-
-## Course Overview
-
-NetApp ONTAP is smart, powerful, and trusted data management software that simplifies storage management, enables organizations to adapt to evolving business requirements, and offers reliable integrated data protection. This course introduces ONTAP's core capabilities across three pillars: **Smart** (streamline operations and reduce costs), **Powerful** (respond to changing business requirements), and **Trusted** (protect and secure data across the hybrid cloud).
-
----
-
-## Course Objectives
-
-By the end of this course, you will be able to:
-
-- Identify the powerful capabilities of ONTAP as a smart storage solution to streamline operations and achieve cost savings
-- Recognize the features of ONTAP that ensure consistent performance for critical workloads across hybrid cloud environments
-- Discuss ONTAP's trusted and reliable integrated data protection measures, including automatic ransomware protection
-
----
 
 # MODULE 1 – NetApp ONTAP Data Management Software
 
