@@ -1,25 +1,4 @@
 # ONTAP Data Protection Fundamentals
-> **NetApp Course** | STRSW-WBT-DPFUND | Duration: 60 minutes | Format: Web-based training
-> **Roles:** Backup administrators, data protection specialists, storage administrators
-> **Prerequisite for:** ONTAP Data Protection Administration
-
----
-
-## Course Overview
-
-This course explores the full spectrum of NetApp ONTAP data protection capabilities — from foundational Snapshot technology to enterprise-grade disaster recovery, business continuity, backup/archive, and cloud-based protection. It covers planning considerations, solution comparison frameworks, and helps administrators identify the right ONTAP data protection solution for each business scenario.
-
----
-
-## Course Objectives
-
-By the end of this course, you will be able to:
-
-- Evaluate the factors to consider when planning for data protection
-- Identify the ONTAP data protection solutions that address business continuity, disaster recovery, and backup requirements
-- Compare the various data protection solutions to determine which ones meet your organization's requirements
-
----
 
 # MODULE 1 – ONTAP Data Protection Overview
 
