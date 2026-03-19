@@ -1,26 +1,4 @@
 # Cloud Volumes ONTAP Fundamentals
-> **NetApp Course** | STRSW-WBT-CVOTF | Duration: 1 hour | Format: Web-based training
-> **Roles:** Administrator, engineer, architect, and operator
-> **Prerequisites:** Introduction to NetApp Cloud Volumes ONTAP · Introduction to NetApp BlueXP · NetApp BlueXP Fundamentals
-
----
-
-## Course Overview
-
-This course provides a comprehensive introduction to **NetApp Cloud Volumes ONTAP (CVO)** — the cloud-native deployment of ONTAP software in public cloud environments. It covers CVO's architecture across AWS, Azure, and GCP; storage management features; data protection capabilities; and full integration with NetApp BlueXP for unified hybrid cloud management.
-
----
-
-## Course Objectives
-
-By the end of this course, you will be able to:
-
-- Articulate the Cloud Volumes ONTAP-based storage system architectures
-- Identify the various storage management options in Cloud Volumes ONTAP
-- Discover how data is managed and protected in Cloud Volumes ONTAP
-- Understand how Cloud Volumes ONTAP integrates with NetApp BlueXP
-
----
 
 # LESSON 1 – Introduction
 
