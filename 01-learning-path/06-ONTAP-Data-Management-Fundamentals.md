@@ -1,27 +1,4 @@
 # ONTAP Data Management Fundamentals
-> **NetApp Course** | STRSW-WBT-ODMF | Duration: 1 hour 15 minutes | Format: Web-based training
-> **Roles:** Storage administrator, architect, and engineer
-> **Prerequisites:** A working knowledge of ONTAP 9 software
-
----
-
-## Course Overview
-
-This course equips storage administrators, architects, and engineers with the skills needed to effectively operate and maintain systems running NetApp ONTAP 9. It covers a broad spectrum of real-world data management tasks: storage infrastructure management, automation, application integration, monitoring and observability, cyber resilience, and centralized hybrid cloud management through BlueXP.
-
----
-
-## Course Objectives
-
-By the end of this course, you will be able to:
-
-- Perform core storage configuration, setup, and monitoring tasks to maintain ONTAP-based storage system health
-- Identify and implement automation to enhance ONTAP storage management
-- Use monitoring tools for proactive ONTAP-based system health and performance management
-- Recognize the role of storage in cyber resilience within ONTAP environments, emphasizing ransomware protection and backup strategies
-- Gain insights into centralized management platforms for effective ONTAP resource management
-
----
 
 # MODULE 1 – Storage Infrastructure Management
 
