@@ -1,23 +1,4 @@
 # Industry Essentials: Cloud Computing
-> **NetApp Course** | SALES-WBT-CLCMFUND | Duration: 30 minutes | Format: Web-based training
-
----
-
-## Course Overview
-
-Cloud computing is one of the major forces shaping how IT teams design, build, and operate enterprise infrastructure. This course covers the fundamentals of cloud computing: core terminology, service delivery models, deployment types, key characteristics, and the critical evaluation criteria that organizations must consider before adopting cloud services — including security, privacy, compliance, performance, and vendor lock-in.
-
----
-
-## Course Objectives
-
-By the end of this course, you will be able to:
-
-- Describe what cloud computing is and the role of the cloud in IT organizations
-- List the key characteristics of cloud computing, delivery methods, and deployment models
-- State the criteria that IT teams must evaluate to determine whether the cloud is the right solution for a particular IT service
-
----
 
 # MODULE 1 – Introduction to Cloud Computing
 
