@@ -1,25 +1,4 @@
 # ONTAP Cluster Fundamentals
-> **NetApp Course** | STRSW-WBT-D8CFND-REV03 | Duration: 1 hour | Format: Web-based training | Audience: Customers
-
----
-
-## Course Overview
-
-This course provides a foundational understanding of NetApp ONTAP clusters: their storage and networking architecture, the tools used to manage them, and the integrated data protection features built into ONTAP software. It also covers basic monitoring and maintenance tasks that administrators perform on a day-to-day basis.
-
----
-
-## Course Objectives
-
-By the end of this course, you will be able to:
-
-- Define storage node, HA pair, and ONTAP cluster
-- Recognize the physical and logical components of the ONTAP storage architecture
-- Articulate the components and architecture of the networks used in ONTAP clusters
-- Distinguish the tools and tasks for the management and monitoring of ONTAP systems
-- Identify the integrated data protection features in ONTAP
-
----
 
 # MODULE 1 – Understanding ONTAP Clusters
 
