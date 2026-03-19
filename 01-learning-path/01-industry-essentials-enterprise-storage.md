@@ -1,5 +1,4 @@
 # Industry Essentials: Enterprise Storage
----
 
 # MODULE 1 – Data Center Infrastructure
 
