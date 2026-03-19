@@ -1,28 +1,4 @@
 # NetApp BlueXP Fundamentals
-> **NetApp Course** | STRSW-WBT-NBXPF | Duration: 60 minutes | Format: Web-based training
-> **Roles:** Administrator, engineer, architect, and operator
-> **Prerequisites:** Introduction to NetApp BlueXP
-
----
-
-## Course Overview
-
-This course provides a comprehensive exploration of **NetApp BlueXP** — the unified hybrid multicloud management platform that enables seamless management of NetApp storage across on-premises ONTAP systems, Cloud Volumes ONTAP, Azure NetApp Files, Amazon FSx for NetApp ONTAP, and Google Cloud NetApp Volumes. The course covers BlueXP's full service portfolio: storage management, health monitoring, data protection, workload automation, governance, and data mobility.
-
----
-
-## Course Objectives
-
-By the end of this course, you will be able to:
-
-- Explore the capabilities of BlueXP to discover, deploy, and manage on-premises, hybrid cloud, and multicloud storage environments
-- Analyze how BlueXP monitors health, provides reports, and recommends actions for ONTAP-based storage systems
-- Discover the BlueXP protection services and features that offer integrated protection of data, storage, applications, ransomware protection, and disaster recovery
-- Examine the supported workloads in BlueXP Workload Factory
-- Explore the BlueXP governance services for classification and digital wallet features
-- Examine the BlueXP mobility services for data movement and optimization across storage environments
-
----
 
 # MODULE 1 – Introduction to BlueXP
 
