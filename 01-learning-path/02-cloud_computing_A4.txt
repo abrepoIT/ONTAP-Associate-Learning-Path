@@ -1,0 +1,902 @@
+INDUSTRY ESSENTIALS: CLOUD COMPUTING
+======================================
+
+
+MODULE 1 - INTRODUZIONE AL CLOUD COMPUTING
+============================================
+
+1.1 Cos'è il Cloud Computing?
+------------------------------
+Il cloud computing è l'erogazione di servizi di computing — inclusi server, storage, database,
+networking, software, analytics e intelligence — via Internet ("il cloud") per offrire innovazione
+più rapida, risorse flessibili ed economie di scala.
+
+Invece di possedere e mantenere data center e server fisici, le organizzazioni possono accedere ai
+servizi tecnologici in base alle necessità da un provider cloud e pagare solo per ciò che usano.
+
+La definizione NIST:
+Il National Institute of Standards and Technology degli USA definisce il cloud computing come:
+"Un modello per abilitare l'accesso di rete on-demand, conveniente e ubiquitario a un pool condiviso
+di risorse di computing configurabili (reti, server, storage, applicazioni e servizi) che possono
+essere rapidamente fornite e rilasciate con minimo sforzo di gestione o interazione con il provider
+di servizi."
+
+Questa definizione evidenzia cinque caratteristiche essenziali, tre modelli di servizio e quattro
+modelli di deployment — tutti trattati in dettaglio nelle sezioni seguenti.
+
+
+1.2 Breve storia del Cloud Computing
+--------------------------------------
+  Era Mainframe      - Anni '50-'70   - Computing centralizzato con terminali dumb; gli utenti condividono le risorse mainframe
+  Era Client-Server  - Anni '80-'90   - Computing distribuito; PC connessi a server locali
+  Era Internet       - Fine anni '90  - Application Service Provider (ASP) ospitano software sul web
+  Era Virtualizzazione - Inizio 2000  - VMware introduce la virtualizzazione dei server; il resource pooling diventa mainstream
+  Era Cloud          - 2006-oggi      - AWS lancia EC2 e S3 (2006); il cloud diventa il modello standard di erogazione IT
+  Era Cloud-Native   - Anni '10-oggi  - Container (Docker), Kubernetes, microservizi, serverless — il cloud diventa un paradigma di sviluppo
+
+
+1.3 Il ruolo del Cloud nelle organizzazioni IT
+-----------------------------------------------
+Il cloud computing ha cambiato fondamentalmente il ruolo dell'IT nelle organizzazioni.
+
+Da CapEx a OpEx:
+  IT Tradizionale:
+    - Grande investimento iniziale in hardware (CapEx)
+    - Cicli di refresh hardware ogni 3-5 anni
+    - Capacità fissa (spesso sovra-dimensionata)
+    - Lunghi cicli di approvvigionamento (settimane o mesi)
+    - L'IT gestisce l'infrastruttura fisica
+
+  IT Cloud:
+    - Spesa operativa pay-as-you-go (OpEx)
+    - Accesso continuo all'ultima infrastruttura
+    - Capacità elastica che corrisponde alla domanda reale
+    - Provisioning self-service in minuti
+    - L'IT si concentra sul valore di business e sull'innovazione
+
+Driver aziendali per l'adozione del cloud:
+  - Speed to market: provisioning dell'infrastruttura in minuti invece che in settimane
+  - Global reach: deploy di applicazioni in più regioni con pochi click
+  - Cost optimization: eliminare l'infrastruttura inattiva, pagare solo per ciò che si usa
+  - Innovation: accesso istantaneo a tecnologie emergenti (AI/ML, IoT, serverless)
+  - Resilience: ridondanza e disaster recovery integrati
+  - Focus sul business core: spostare il personale IT dalla gestione infrastrutturale a progetti strategici
+
+Modelli di adozione del cloud:
+  1. Lift-and-Shift (Rehost): spostare le applicazioni esistenti su VM cloud con modifiche minime
+  2. Replatform: fare piccole ottimizzazioni cloud senza cambiare l'architettura core
+  3. Refactor/Re-architect: riprogettare le applicazioni come cloud-native (microservizi, container)
+  4. Rebuild: riscrivere l'applicazione da zero usando tecnologie cloud-native
+  5. Replace (SaaS): abbandonare le applicazioni legacy e adottare alternative SaaS
+  6. Retire: dismettere applicazioni non più necessarie
+
+
+MODULE 2 - CARATTERISTICHE ESSENZIALI DEL CLOUD COMPUTING
+===========================================================
+Il modello NIST identifica cinque caratteristiche essenziali che definiscono un vero servizio cloud.
+Se un servizio non presenta tutte e cinque, potrebbe non essere genuinamente "cloud".
+
+2.1 On-Demand Self-Service
+---------------------------
+Gli utenti possono effettuare il provisioning di risorse di computing automaticamente senza
+richiedere l'interazione umana del provider.
+
+Cosa significa in pratica:
+  - Uno sviluppatore può avviare una VM in 2 minuti via portale web o API
+  - Un data scientist può fare il provisioning di un cluster GPU per un job di ML e terminarlo quando ha finito
+  - La capacità di storage può essere aumentata istantaneamente via console di gestione
+
+Perché è importante:
+  - Rimuove i colli di bottiglia dai processi di approvvigionamento IT
+  - Consente ai team di sviluppo e operazioni di muoversi più velocemente
+  - Abilita la sperimentazione a basso costo
+
+
+2.2 Broad Network Access
+-------------------------
+I servizi cloud sono disponibili in rete e accessibili tramite meccanismi standard (browser web, app
+mobile, API) da un'ampia gamma di dispositivi (laptop, tablet, smartphone, dispositivi IoT).
+
+Punti chiave:
+  - Accesso via Internet pubblico o connettività privata (VPN, Direct Connect, ExpressRoute)
+  - API basate su standard (REST, SOAP) garantiscono l'interoperabilità
+  - Indipendenza dalla posizione: risorse accessibili da qualsiasi parte del mondo
+  - Supporta lavoro remoto, team globali e workforce mobile
+
+
+2.3 Resource Pooling
+---------------------
+Le risorse di computing del provider sono condivise per servire più consumer usando un modello
+multi-tenant. Le risorse fisiche e virtuali vengono assegnate e riassegnate dinamicamente in base
+alla domanda.
+
+Multi-tenancy:
+  - Più clienti condividono la stessa infrastruttura fisica
+  - I dati e i workload di ogni cliente sono logicamente isolati
+  - I clienti generalmente non controllano né conoscono la posizione fisica esatta delle risorse
+  - Tuttavia, i clienti possono specificare la regione/paese per conformità normativa
+
+Vantaggi:
+  - Economie di scala per il provider → costi inferiori per il cliente
+  - Maggiore utilizzo dell'hardware fisico
+  - Provisioning delle risorse più rapido
+
+Come vengono gestite le preoccupazioni:
+  - Isolamento logico (virtualizzazione, container)
+  - Cifratura dei dati a riposo e in transito
+  - Gestione forte di accessi e identità
+
+
+2.4 Rapid Elasticity
+---------------------
+Le risorse possono essere provisionate e rilasciate elasticamente, in alcuni casi automaticamente,
+per scalare rapidamente verso l'esterno e verso l'interno in base alla domanda.
+
+Due tipi di elasticità:
+  Horizontal scaling (scale-out) - Aggiunge più istanze/nodi        - Es: aggiunta di web server durante un picco di traffico
+  Vertical scaling (scale-up)    - Aumenta le risorse dell'istanza   - Es: upgrade della VM da 4 a 16 vCPU
+
+Auto-scaling:
+  Le piattaforme cloud (AWS Auto Scaling, Azure VMSS, GCP Managed Instance Groups) regolano
+  automaticamente la capacità in base alle policy (CPU%, memoria, request rate).
+  Scale-out quando il carico aumenta → scale-in quando il carico diminuisce.
+
+Perché è importante:
+  - Non sovra-provisionare (pagare capacità inattiva)
+  - Non sotto-provisionare (soffrire degradazione delle performance)
+  - Gestire workload imprevedibili (picchi e-commerce, eventi virali)
+
+
+2.5 Measured Service
+---------------------
+I sistemi cloud controllano e ottimizzano automaticamente l'uso delle risorse sfruttando capacità di
+metering. L'uso delle risorse viene monitorato, controllato e riportato — fornendo trasparenza sia
+al provider che al consumer.
+
+Cosa viene misurato:
+  - Compute: ore vCPU, instance-hours
+  - Storage: GB memorizzati, operazioni I/O (IOPS), trasferimento dati
+  - Network: GB ingress/egress, numero di chiamate API
+  - Servizi gestiti: richieste elaborate, funzioni invocate, unità di query database
+
+Implicazioni di business:
+  - Fatturazione pay-per-use: attribuzione granulare dei costi a progetti, team, dipartimenti
+  - Cost optimization: identificare risorse sottoutilizzate e dimensionare correttamente i workload
+  - Budgeting e forecasting: prevedere la spesa cloud in base alle tendenze di utilizzo
+  - Showback/Chargeback: allocare i costi cloud alle business unit
+
+Strumenti: AWS Cost Explorer, Azure Cost Management, GCP Billing, strumenti terzi (CloudHealth,
+Apptio)
+
+
+MODULE 3 - MODELLI DI EROGAZIONE DEI SERVIZI CLOUD
+====================================================
+I servizi cloud vengono erogati attraverso tre modelli principali, spesso visualizzati come uno
+"stack di responsabilità".
+
+3.1 Il Shared Responsibility Model
+------------------------------------
+Prima di approfondire ogni modello, è essenziale capire il Shared Responsibility Model — la
+divisione dei compiti di sicurezza e gestione tra provider cloud e cliente.
+
+                IT TRADIZIONALE    IaaS              PaaS              SaaS
+                ───────────────    ────────────────  ────────────────  ────────────────
+  Applicazioni      [Cliente]          [Cliente]         [Cliente]         [Provider]
+  Dati              [Cliente]          [Cliente]         [Cliente]         [Provider]
+  Runtime           [Cliente]          [Cliente]         [Provider]        [Provider]
+  Middleware        [Cliente]          [Cliente]         [Provider]        [Provider]
+  OS                [Cliente]          [Cliente]         [Provider]        [Provider]
+  Virtualizzazione  [Cliente]          [Provider]        [Provider]        [Provider]
+  Server            [Cliente]          [Provider]        [Provider]        [Provider]
+  Storage           [Cliente]          [Provider]        [Provider]        [Provider]
+  Networking        [Cliente]          [Provider]        [Provider]        [Provider]
+  Data Center       [Cliente]          [Provider]        [Provider]        [Provider]
+
+Man mano che si passa da IaaS → PaaS → SaaS, il provider gestisce di più e il cliente ha meno
+controllo ma anche meno onere operativo.
+
+
+3.2 IaaS - Infrastructure as a Service
+----------------------------------------
+
+Definizione:
+IaaS fornisce infrastruttura di computing virtualizzata via Internet. Il provider gestisce hardware
+fisico, hypervisor, networking e storage hardware. Il cliente gestisce tutto a partire dall'OS.
+
+Cosa controlla il cliente:
+  - Sistema operativo (scelta tra Windows, distribuzioni Linux, ecc.)
+  - Software installato, middleware, runtime
+  - Applicazioni e configurazione applicativa
+  - Dati memorizzati su dischi virtuali
+  - Configurazione rete virtuale (subnet, security group, routing)
+
+Componenti chiave IaaS:
+  Virtual Machines   - Istanze di compute di varie dimensioni - AWS: EC2              - Azure: Azure VM
+  Block Storage      - Dischi virtuali collegati alle VM       - AWS: EBS              - Azure: Managed Disks
+  Object Storage     - Storage dati non strutturati scalabile  - AWS: S3               - Azure: Blob Storage
+  Virtual Networking - Reti software-defined, subnet, routing  - AWS: VPC              - Azure: VNet
+  Load Balancers     - Distribuzione traffico tra istanze      - AWS: ELB/ALB          - Azure: Azure Load Balancer
+  DNS                - Risoluzione nomi di dominio             - AWS: Route 53         - Azure: Azure DNS
+  CDN                - Content delivery network                - AWS: CloudFront       - Azure: Azure CDN
+
+Vantaggi IaaS:
+  - Massima flessibilità: pieno controllo su OS e software stack
+  - Lift-and-shift: migrazione applicazioni esistenti con modifiche minime
+  - Ambiente familiare: funziona come server on-premises ma virtualizzato
+  - Risparmio sui costi: eliminare l'acquisto di hardware e i costi del data center
+
+Svantaggi IaaS:
+  - Alto onere di gestione: cliente responsabile di patching OS, hardening sicurezza, configurazione middleware
+  - Richiede competenze IT: non adatto a team senza skill infrastrutturali
+  - Responsabilità sicurezza: security group mal configurati o vulnerabilità OS sono responsabilità del cliente
+
+Casi d'uso IaaS:
+  - Hosting web application e API
+  - Ambienti di sviluppo e test
+  - High-performance computing (HPC) e batch processing
+  - Infrastruttura DR e backup
+  - Cluster di elaborazione big data
+
+
+3.3 PaaS - Platform as a Service
+----------------------------------
+
+Definizione:
+PaaS fornisce una piattaforma gestita su cui gli sviluppatori possono costruire, eseguire e gestire
+applicazioni senza dover affrontare la complessità dell'infrastruttura sottostante.
+Il provider gestisce tutto dall'OS all'ambiente runtime.
+
+Cosa controlla il cliente:
+  - Codice e logica applicativa
+  - Configurazione e impostazioni dell'applicazione
+  - Dati
+  - (A volte) selezione della versione del runtime
+
+Componenti chiave PaaS:
+  App Platform      - Runtime gestito per web app         - AWS: Elastic Beanstalk     - Azure: Azure App Service
+  Managed Databases - DB relazionali/NoSQL gestiti         - AWS: RDS, DynamoDB         - Azure: Azure SQL, Cosmos DB
+  Message Queues    - Messaggistica async tra servizi      - AWS: SQS, SNS              - Azure: Azure Service Bus
+  API Gateway       - Gestione, sicurezza e scaling API   - AWS: API Gateway           - Azure: Azure API Management
+  CI/CD Pipeline    - Build, test e deploy automatizzati  - AWS: CodePipeline          - Azure: Azure DevOps
+  Data Analytics    - Big data processing gestito          - AWS: EMR, Glue             - Azure: HDInsight, Synapse
+  AI/ML Platform    - Servizi ML gestiti                   - AWS: SageMaker             - Azure: Azure ML
+
+Vantaggi PaaS:
+  - Produttività sviluppatori: focus sulla scrittura del codice, non sulla gestione dei server
+  - Faster time to market: ambienti pre-configurati riducono i tempi di setup
+  - Scalabilità integrata: la piattaforma scala automaticamente con la domanda
+  - Minor overhead operativo: il provider gestisce aggiornamenti OS, patch, sicurezza
+  - Servizi gestiti: database, caching, queuing — tutti completamente gestiti
+
+Svantaggi PaaS:
+  - Meno controllo: impossibile personalizzare profondamente OS o ambiente runtime
+  - Rischio vendor lock-in: le API PaaS proprietarie possono essere difficili da migrare
+  - Flessibilità limitata: potrebbe non supportare tutti i linguaggi, framework o dipendenze custom
+  - Problema "works on my machine": i vincoli della piattaforma possono differire dall'ambiente locale
+
+Casi d'uso PaaS:
+  - Backend di applicazioni web e mobile
+  - Architetture a microservizi
+  - Pipeline dati e workload analytics
+  - Sviluppo e gestione API
+  - Prototipazione rapida e ambienti startup
+
+
+3.4 SaaS - Software as a Service
+----------------------------------
+
+Definizione:
+SaaS eroga applicazioni complete e pronte all'uso via Internet. Il provider gestisce tutto — dal
+data center all'applicazione stessa. Il cliente usa semplicemente il software tramite browser web o
+app.
+
+Cosa controlla il cliente:
+  - Account utente e permessi
+  - Dati aziendali inseriti nell'applicazione
+  - Opzioni di configurazione dell'applicazione (nei limiti consentiti dal provider)
+
+Categorie SaaS comuni:
+  Produttività e Collaboration        - Microsoft 365, Google Workspace, Slack, Zoom
+  CRM (Customer Relationship Mgmt)    - Salesforce, HubSpot, Microsoft Dynamics
+  ERP (Enterprise Resource Planning)  - SAP S/4HANA Cloud, Oracle ERP Cloud, NetSuite
+  ITSM (IT Service Management)        - ServiceNow, JIRA Service Management
+  HR e Payroll                        - Workday, BambooHR, ADP
+  Security                            - Okta, CrowdStrike, Zscaler
+  Storage e Backup                    - Dropbox, Box, Backblaze
+  Strumenti di sviluppo               - GitHub, GitLab, CircleCI
+
+Vantaggi SaaS:
+  - Zero gestione infrastruttura: nessun server, OS o aggiornamento da gestire
+  - Accesso immediato: disponibile subito, accessibile da qualsiasi dispositivo
+  - Aggiornamenti automatici: il provider gestisce tutti gli aggiornamenti software e le patch
+  - Costo iniziale inferiore: prezzi subscription (per utente/mese)
+  - Accessibilità: qualsiasi dispositivo connesso a Internet può accedere al servizio
+
+Svantaggi SaaS:
+  - Personalizzazione minima: capacità limitata di modificare il software
+  - Preoccupazioni sulla data sovereignty: dati memorizzati sull'infrastruttura del provider
+  - Dipendenza da Internet: servizio non disponibile se la connessione Internet cade
+  - Accumulo costi subscription: i costi possono accumularsi con molte subscription SaaS (SaaS sprawl)
+  - Complessità di integrazione: connettere più strumenti SaaS può richiedere middleware (iPaaS)
+
+Casi d'uso SaaS:
+  - Strumenti di produttività aziendale (email, calendario, documenti)
+  - Sales e marketing automation
+  - Gestione HR e payroll
+  - Customer support e ticketing
+
+
+3.5 Modelli di servizio estesi
+--------------------------------
+Oltre ai classici tre, l'industria ha introdotto ulteriori modelli "aaS":
+
+  FaaS   (Function as a Service)          - Esecuzione di singole funzioni in risposta a eventi, senza gestione server - Es: AWS Lambda, Azure Functions, GCP Cloud Functions
+  CaaS   (Container as a Service)         - Orchestrazione container gestita - Es: AWS ECS/EKS, Azure AKS, GCP GKE
+  DBaaS  (Database as a Service)          - Database completamente gestiti - Es: AWS RDS, Azure Cosmos DB, MongoDB Atlas
+  STaaS  (Storage as a Service)           - Storage cloud - Es: AWS S3, Azure Blob, NetApp Cloud Volumes ONTAP
+  DRaaS  (Disaster Recovery as a Service) - DR basato su cloud - Es: Zerto, Veeam Cloud, AWS Elastic DR
+  SECaaS (Security as a Service)          - Servizi di sicurezza erogati via cloud - Es: Zscaler, Okta, Cloudflare
+  AIaaS  (AI as a Service)               - Modelli AI/ML e API pre-costruiti - Es: AWS Rekognition, Azure Cognitive Services
+  NaaS   (Network as a Service)           - Servizi di rete virtualizzati - Es: AWS Transit Gateway, SD-WAN as a service
+
+
+MODULE 4 - MODELLI DI DEPLOYMENT CLOUD
+========================================
+
+4.1 Public Cloud
+-----------------
+
+Definizione:
+Un public cloud è un'infrastruttura cloud posseduta e gestita da un provider terzo e messa a
+disposizione del pubblico generale o di grandi gruppi industriali via Internet. Le risorse sono
+condivise tra più clienti (multi-tenant).
+
+Caratteristiche:
+  - Infrastruttura interamente posseduta dal provider (AWS, Azure, GCP, ecc.)
+  - Massicce economie di scala → costo più basso per unità di compute/storage
+  - Alta disponibilità e distribuzione globale (più Availability Zone e Region)
+  - I clienti accedono alle risorse via Internet o connessioni dedicate
+  - Il provider è responsabile di sicurezza fisica, manutenzione hardware e rete globale
+
+Concetti chiave: Region e Availability Zone
+
+  Region: un'area geografica contenente più Availability Zone (es. us-east-1, eu-west-1)
+
+  Availability Zone (AZ): uno o più data center distinti all'interno di una Region, con
+  alimentazione, raffreddamento e networking indipendenti. Le AZ all'interno di una Region
+  sono connesse tramite link a bassa latenza.
+
+  Esempio - Region: US East (N. Virginia)
+    +-- AZ: us-east-1a (Data Center 1, Data Center 2)
+    +-- AZ: us-east-1b (Data Center 3, Data Center 4)
+    +-- AZ: us-east-1c (Data Center 5)
+    +-- AZ: us-east-1d (Data Center 6)
+
+  Deployare su più AZ garantisce alta disponibilità: se una AZ si guasta, le altre continuano
+  a servire il traffico.
+
+Vantaggi:
+  - Nessun investimento CapEx in hardware
+  - Accesso a un vasto catalogo di servizi (200+ in AWS)
+  - Presenza globale in minuti
+  - Refresh hardware automatico (accesso a ultimi CPU, GPU, SSD)
+  - Ridondanza e capacità DR integrate
+
+Svantaggi:
+  - Preoccupazioni sicurezza/privacy: dati su infrastruttura condivisa
+  - Sfide di compliance: requisiti di data residency possono limitare l'uso
+  - Dipendenza da Internet: richiede connettività Internet affidabile
+  - Vendor lock-in: servizi proprietari creano barriere alla migrazione
+  - Imprevedibilità dei costi: il cloud mal gestito può diventare molto costoso
+
+
+4.2 Private Cloud
+------------------
+
+Definizione:
+Un private cloud è un'infrastruttura cloud dedicata esclusivamente a una singola organizzazione,
+gestita internamente o da un provider terzo, ospitata on-premises o in un colocation.
+
+Caratteristiche:
+  - Le risorse non sono condivise con altre organizzazioni
+  - L'organizzazione ha pieno controllo su hardware, software e dati
+  - Possibilità di implementare policy di sicurezza e controlli di compliance personalizzati
+  - Costi iniziali più elevati ma costi a lungo termine più prevedibili
+
+Tipi di Private Cloud:
+  On-premises private cloud  - Infrastruttura nel data center dell'organizzazione       - Es: VMware Cloud Foundation, OpenStack
+  Hosted private cloud       - Infrastruttura dedicata nel data center del provider      - Es: IBM Cloud Dedicated, Rackspace Private Cloud
+  Managed private cloud      - L'organizzazione possiede l'hardware, un terzo lo gestisce - Es: NetApp Managed Private Cloud
+
+Tecnologie Private Cloud:
+  - Hypervisor: VMware vSphere, Microsoft Hyper-V, KVM
+  - Cloud management platform: VMware vRealize, OpenStack, Microsoft Azure Stack
+  - Software-defined networking: VMware NSX, Cisco ACI
+  - Software-defined storage: NetApp ONTAP, VMware vSAN, Ceph
+
+Vantaggi:
+  - Massima sicurezza e controllo: piena governance su dati e infrastruttura
+  - Personalizzazione: adattare hardware e software a requisiti specifici
+  - Compliance: più facile soddisfare requisiti normativi stringenti (GDPR, HIPAA, PCI-DSS)
+  - Performance prevedibili: nessun problema "noisy neighbor" da infrastruttura condivisa
+  - Data sovereignty: i dati non lasciano mai il controllo dell'organizzazione
+
+Svantaggi:
+  - Alto CapEx: significativo investimento iniziale in hardware
+  - Scalabilità limitata: vincolata dall'hardware fisico acquistato
+  - Overhead IT: richiede competenze interne per la gestione
+  - Innovazione più lenta: nessun accesso automatico ai nuovi servizi del provider
+  - Rischio di sottoutilizzo: l'hardware può essere inattivo se la domanda è inferiore al previsto
+
+Quando scegliere il Private Cloud:
+  - Industrie fortemente regolamentate (banking, healthcare, governo, difesa)
+  - Organizzazioni con workload grandi, prevedibili e stabili
+  - Requisiti stringenti di data sovereignty
+  - Esigenze di hardware specializzato (GPU custom, FPGA, mainframe)
+  - Applicazioni legacy difficili da migrare
+
+
+4.3 Hybrid Cloud
+-----------------
+
+Definizione:
+Un hybrid cloud combina cloud pubblico e privato (e opzionalmente infrastruttura on-premises) con
+orchestrazione tra di essi, consentendo a dati e applicazioni di spostarsi tra gli ambienti.
+
+Schema architetturale:
+  On-Premises / Private Cloud              Public Cloud
+  ────────────────────────────             ─────────────────────────────
+    Workload sensibili                       Workload elastici
+    Applicazioni legacy          <------>    Ambienti Dev/Test
+    Dati regolamentati                       Capacità burst
+    Database core                            CDN globale
+  ────────────────────────────             ─────────────────────────────
+           |                                         |
+           +------------ Connessione Sicura ----------+
+                         (VPN / Direct Connect /
+                          ExpressRoute / SD-WAN)
+
+Concetti chiave del Hybrid Cloud:
+
+  Cloud Bursting: quando le risorse on-premises raggiungono la capacità, i workload in overflow
+  vanno automaticamente sul cloud pubblico. Quando la domanda cala, i workload tornano on-premises.
+
+  Data tiering: i dati frequentemente acceduti ("hot") restano on-premises per le performance;
+  i dati raramente acceduti ("cold") vengono spostati automaticamente su storage cloud a basso costo.
+
+  Unified management plane: un'unica console per gestire risorse in entrambi gli ambienti
+  (es. VMware Cloud on AWS, Azure Arc, Google Anthos, NetApp BlueXP).
+
+Opzioni di connettività:
+  IPsec VPN             - Tunnel cifrato su Internet pubblico - Banda: Variabile     - Latenza: Più alta - Sicurezza: Buona
+  AWS Direct Connect    - Circuito privato dedicato ad AWS   - Banda: 1-100 Gbps    - Latenza: Bassa    - Sicurezza: Alta
+  Azure ExpressRoute    - Circuito privato dedicato ad Azure - Banda: 50Mbps-100Gbps - Latenza: Bassa   - Sicurezza: Alta
+  GCP Cloud Interconnect - Circuito privato dedicato a GCP  - Banda: 10-100 Gbps   - Latenza: Bassa    - Sicurezza: Alta
+  SD-WAN                - Rete overlay software-defined      - Banda: Variabile      - Latenza: Bassa-Media - Sicurezza: Buona
+
+Vantaggi:
+  - Flessibilità: posizionare ogni workload nell'ambiente più appropriato
+  - Cost optimization: mantenere workload stabili on-premises (più economico su scala), burst su cloud per i picchi
+  - Risk mitigation: migrazione cloud graduale, non tutto-o-niente
+  - Compliance: dati sensibili on-premises, dati non sensibili in cloud
+  - Business continuity: cloud come DR target per sistemi on-premises
+
+Svantaggi:
+  - Complessità: gestire due o più ambienti richiede competenze significative
+  - Dipendenza dalla rete: le performance dipendono dalla qualità della connettività tra ambienti
+  - Sfide di sicurezza: superficie di attacco maggiore, dati in transito tra ambienti
+  - Difficoltà di cost management: spesa distribuita tra on-premises e cloud
+
+
+4.4 Multi-Cloud
+----------------
+
+Definizione:
+Il multi-cloud si riferisce all'uso di servizi cloud da più provider simultaneamente.
+Un'organizzazione potrebbe usare AWS per il compute, Azure per l'identity e Office 365, e GCP per il
+machine learning — tutto contemporaneamente.
+
+Multi-Cloud vs Hybrid Cloud:
+  Definizione:   Hybrid = On-premises + cloud pubblico          / Multi = Più provider cloud pubblici
+  Integrazione:  Hybrid = Stretta (orchestrata)                  / Multi = Lasca (spesso indipendente)
+  Obiettivo:     Hybrid = Estendere on-premises al cloud         / Multi = Evitare lock-in, best-of-breed
+  Complessità:   Hybrid = Media                                   / Multi = Alta
+
+Perché le organizzazioni scelgono il Multi-Cloud:
+  - Evitare il vendor lock-in: non dipendere da pricing o SLA di un singolo provider
+  - Servizi best-of-breed: BigQuery di GCP per analytics, AWS per compute, Azure per identity
+  - Copertura geografica: alcuni provider hanno copertura migliore in regioni specifiche
+  - Ridondanza: se un provider ha un'interruzione, i workload girano su un altro
+  - Requisiti normativi: alcuni paesi richiedono dati in cloud gestiti localmente
+
+Sfide del Multi-Cloud:
+  - Complessità di gestione: console, API, modelli di pricing e strutture di supporto diversi
+  - Costi di trasferimento dati: spostare dati tra cloud comporta costi di egress
+  - Coerenza della sicurezza: modelli e strumenti di sicurezza diversi per ogni provider
+  - Requisiti di competenze: il personale deve conoscere più piattaforme
+  - Governance: applicazione coerente delle policy tra i cloud
+
+Strumenti di gestione Multi-Cloud:
+  - HashiCorp Terraform: infrastructure-as-code per più provider cloud
+  - Kubernetes: orchestrazione container che gira su qualsiasi cloud
+  - NetApp BlueXP: gestione unificata dei dati tra i cloud
+  - VMware Tanzu / Google Anthos / Azure Arc: piattaforme applicative hybrid e multi-cloud
+
+
+4.5 Community Cloud
+--------------------
+Un modello meno comune ma importante: un community cloud è condiviso da diverse organizzazioni con
+preoccupazioni comuni (requisiti di sicurezza, standard di compliance, obiettivi di missione).
+
+Esempi di utilizzo:
+  - Government cloud (condiviso da più agenzie governative)
+  - Healthcare cloud (condiviso da ospedali e provider sanitari conformi HIPAA)
+  - Financial services cloud (condiviso da banche con requisiti PCI-DSS comuni)
+
+Esempi: AWS GovCloud, Microsoft Azure Government, Google Cloud for Public Sector
+
+
+MODULE 5 - CRITERI DI VALUTAZIONE DEL CLOUD
+=============================================
+Prima di adottare servizi cloud, i team IT devono valutare attentamente diversi criteri chiave.
+Questi fattori determinano se il cloud è la scelta giusta per un workload specifico e quale modello
+di deployment è più appropriato.
+
+5.1 Sicurezza
+--------------
+La sicurezza è costantemente citata come la principale preoccupazione per le organizzazioni che
+considerano l'adozione del cloud.
+
+IDENTITY AND ACCESS MANAGEMENT (IAM)
+  - Chi ha accesso alle risorse cloud?
+  - Vengono applicati principi di least-privilege?
+  - È richiesta l'autenticazione multi-fattore (MFA)?
+  - Come vengono gestiti service account e API key?
+
+  Concetti chiave IAM:
+    - IAM Roles: definiscono i permessi per utenti, gruppi e servizi
+    - Federation: integrazione con provider di identità aziendali esistenti (Active Directory, Okta) via SAML o OIDC
+    - Privileged Access Management (PAM): controlli aggiuntivi per account amministrativi
+
+NETWORK SECURITY
+  - Virtual Private Cloud (VPC): ambiente di rete isolato nel cloud pubblico
+  - Security Groups / Network ACL: filtraggio pacchetti stateful e stateless
+  - Private Endpoint: connessione ai servizi cloud senza attraversare Internet pubblico
+  - DDoS Protection: AWS Shield, Azure DDoS Protection, GCP Cloud Armor
+
+DATA SECURITY
+  - Encryption at-rest: AES-256 per dati memorizzati; chiavi gestite dal cliente (BYOK) o dal provider
+  - Encryption in-transit: TLS 1.2/1.3 per tutti i dati in movimento in rete
+  - Key Management: AWS KMS, Azure Key Vault, GCP Cloud KMS — hardware security module (HSM)
+  - Data Loss Prevention (DLP): rilevare e prevenire la fuoriuscita di dati sensibili
+
+SECURITY MONITORING
+  - SIEM (Security Information and Event Management): analisi centralizzata log e rilevamento minacce
+  - CSPM (Cloud Security Posture Management): scansione continua per rilevare misconfigurazioni
+  - CWPP (Cloud Workload Protection Platform): protezione dei workload in esecuzione dalle minacce
+  - Strumenti: AWS Security Hub, Azure Defender, GCP Security Command Center, Prisma Cloud
+
+Responsabilità nel Shared Responsibility Model:
+  Responsabilità Provider:
+    - Sicurezza fisica del data center
+    - Sicurezza hardware e hypervisor
+    - Sicurezza rete globale
+    - Disponibilità del servizio
+    - Compliance dell'infrastruttura
+
+  Responsabilità Cliente:
+    - Identity and access management
+    - Patching OS (IaaS)
+    - Sicurezza applicativa
+    - Cifratura dati (scelta)
+    - Configurazione firewall/security group
+
+  NOTA IMPORTANTE: La maggior parte delle violazioni di sicurezza cloud è causata da
+  misconfigurazioni del cliente, non da vulnerabilità del provider.
+
+
+5.2 Privacy
+------------
+Le preoccupazioni sulla privacy si concentrano su chi ha accesso ai dati memorizzati nel cloud e in
+quali circostanze.
+
+Domande chiave sulla privacy:
+  - Il provider cloud ha accesso ai dati del cliente?
+  - I dati possono essere acceduti dai dipendenti del provider per supporto?
+  - Il provider usa i dati del cliente per addestrare modelli AI o per altri scopi?
+  - I log di accesso ai dati vengono mantenuti e sono verificabili?
+
+Data Residency e Sovereignty:
+  Data residency: la posizione fisica o geografica in cui i dati vengono memorizzati.
+  Data sovereignty: il concetto che i dati sono soggetti alle leggi del paese in cui sono memorizzati.
+
+  Perché è importante:
+    - Il CLOUD Act USA (2018) consente alle autorità USA di richiedere dati da aziende americane
+      indipendentemente da dove siano fisicamente memorizzati
+    - Il GDPR richiede che i dati personali dei cittadini UE siano trattati secondo le norme UE
+    - Alcuni paesi (Russia, Cina) richiedono storage locale dei dati
+
+  Come affrontare la data residency:
+    - Scegliere Region cloud nel paese o giurisdizione richiesta
+    - Usare Data Residency Guarantee dei provider (AWS Data Residency, Azure Sovereign Regions)
+    - Considerare opzioni di sovereign cloud (Azure for Government, French Sovereign Cloud, ecc.)
+
+Normative sulla privacy rilevanti per il cloud:
+  GDPR    - UE/SEE        - Basi legali per il trattamento, consenso, diritti degli interessati, DPO, notifica breach
+  CCPA/CPRA - California  - Diritto di sapere, diritto alla cancellazione, opt-out dalla vendita dati
+  LGPD    - Brasile       - Simile a GDPR, principi di trattamento dati e diritti degli interessati
+  PDPA    - Singapore/TH  - Requisiti di consenso, data protection officer
+  PIPEDA  - Canada        - Privacy nelle attività commerciali, consenso, diritti di accesso
+
+
+5.3 Compliance
+---------------
+La compliance garantisce che l'uso del cloud soddisfi i requisiti legali, normativi e contrattuali
+applicabili al settore e alla geografia dell'organizzazione.
+
+Framework di compliance cloud:
+  1. Requisiti normativi
+  2. Certificazioni del provider cloud --> Il provider soddisfa la compliance di base?
+  3. Configurazione del cliente -------> Il cliente configura correttamente i servizi?
+  4. Monitoraggio continuo ------------> La compliance viene mantenuta nel tempo?
+
+Principali standard e certificazioni di compliance:
+  ISO 27001  - Tutti        - Information Security Management System (ISMS)
+  SOC 2 Type II - Tutti(USA)- Sicurezza, disponibilità, integrità, riservatezza, privacy
+  PCI-DSS    - Finanza/Retail - Protezione dati carte di credito
+  HIPAA      - Healthcare USA - Protected Health Information (PHI)
+  FedRAMP    - Gov. USA      - Autorizzazione di sicurezza cloud federale
+  GDPR       - UE            - Trattamento dati personali
+  CSA STAR   - Cloud         - Certificazione di sicurezza specifica cloud
+  FIPS 140-2 - Gov./Difesa   - Standard moduli crittografici
+
+Come i provider cloud supportano la compliance:
+  - Compliance Marketplace: AWS Artifact, Azure Compliance Manager, GCP Compliance Reports
+  - Controlli di compliance pre-costruiti: i servizi gestiti spesso hanno controlli integrati
+  - Supporto all'audit: accesso a log, certificazioni e report di audit terzi
+  - BAA (Business Associate Agreements): per entità HIPAA-covered
+  - DPA (Data Processing Agreements): per i responsabili del trattamento GDPR
+
+NOTA: Compliance non equivale a sicurezza. Soddisfare i requisiti di compliance non significa
+automaticamente che l'ambiente sia sicuro. La compliance definisce una baseline minima; la sicurezza
+richiede una gestione attiva e continua al di là dei semplici checkbox.
+
+
+5.4 Performance
+----------------
+Le performance del cloud devono essere valutate attentamente per garantire che i requisiti aziendali
+— tempi di risposta, throughput, disponibilità — possano essere soddisfatti.
+
+LATENZA
+  - Network latency: tempo di viaggio dei dati tra utente e cloud (influenzato dalla distanza geografica)
+  - Storage latency: tempo per leggere/scrivere dati (NVMe SSD < SAS SSD < HDD)
+  - Application latency: tempo di risposta end-to-end percepito dagli utenti
+
+  Come ridurre la latenza:
+    - Scegliere Region cloud geograficamente vicine agli utenti
+    - Usare CDN (Content Delivery Network) per cachare contenuti vicino agli utenti
+    - Usare Direct Connect / ExpressRoute per connettività privata a bassa latenza prevedibile
+    - Deployare all'Edge per applicazioni IoT/real-time ultra-low latency
+
+THROUGHPUT E BANDA
+  - Network bandwidth: disponibile tra cloud e on-premises (o tra servizi)
+  - Storage throughput: MB/s per operazioni di lettura/scrittura sequenziali
+  - IOPS: operazioni I/O random al secondo (critico per i database)
+
+IL PROBLEMA DEL "NOISY NEIGHBOR"
+In ambienti cloud condivisi, altri tenant che consumano risorse eccessive possono degradare le
+performance per i workload vicini.
+
+  Soluzioni:
+    - Usare istanze dedicate (AWS Dedicated Instances, Azure Isolated VM)
+    - Usare tier di storage premium con IOPS garantiti
+    - Scegliere istanze riservate o bare-metal per performance consistenti
+
+BENCHMARKING DELLE PERFORMANCE
+Prima della migrazione, i team IT dovrebbero:
+  1. Rilevare le metriche di performance on-premises correnti come baseline
+  2. Testare configurazioni cloud equivalenti
+  3. Confrontare i risultati e identificare i gap
+  4. Dimensionare correttamente le risorse cloud in base ai requisiti reali (non ipotizzati)
+
+SLA (Service Level Agreement):
+I provider cloud pubblicano SLA che garantiscono disponibilità e performance minime:
+  Virtual Machine (multi-AZ/zone):  AWS: 99,99% / Azure: 99,99% / GCP: 99,99%
+  Object Storage (S3/Blob):          AWS: 99,9%  / Azure: 99,9%  / GCP: 99,9%
+  Managed Database (RDS):            AWS: 99,95% / Azure: 99,99% / GCP: 99,95%
+
+IMPORTANTE: Gli SLA definiscono garanzie di uptime e compensazione (crediti di servizio)
+— non una garanzia di zero downtime.
+
+
+5.5 Vendor Lock-In
+-------------------
+Il vendor lock-in si verifica quando un'organizzazione diventa così dipendente dai servizi
+proprietari di un singolo provider cloud che cambiare provider diventa proibitivamente costoso,
+complesso o rischioso.
+
+Tipi di lock-in:
+  Service lock-in    - Uso intensivo di servizi gestiti proprietari  - Es: AWS DynamoDB, Azure CosmosDB
+  Data lock-in       - Difficoltà e costo di spostare grandi dataset - Es: costi egress elevati, formati dati proprietari
+  Skills lock-in     - Competenze del team costruite solo su una piattaforma - Es: ingegneri solo certificati AWS
+  Contract lock-in   - Contratti multi-anno a uso impegnato           - Es: Reserved Instances, Committed Use Discounts
+  Operational lock-in - Processi, monitoring e tooling costruiti per un provider - Es: pipeline di monitoring solo su CloudWatch
+
+Strategie per minimizzare il lock-in:
+
+  Strategie architetturali:
+    - Progettare applicazioni usando standard aperti (REST API, SQL, Kubernetes, API S3-compatible)
+    - Usare la containerizzazione (Docker/Kubernetes) — i container girano su qualsiasi cloud
+    - Preferire database open-source (PostgreSQL, MySQL) rispetto a quelli proprietari (Aurora, Cosmos DB)
+    - Usare layer di storage multi-cloud — NetApp Cloud Volumes ONTAP astrae lo storage tra AWS, Azure e GCP
+
+  Strategie operative:
+    - Usare Terraform (infrastructure-as-code) per provisioning cloud-agnostico
+    - Investire in competenze multi-cloud piuttosto che solo certificazioni single-provider
+    - Mantenere piani di uscita dal cloud: sapere cosa servirebbe per migrare a un altro provider
+    - Monitorare e verificare regolarmente l'uso di servizi proprietari
+
+  Strategie commerciali:
+    - Negoziare termini contrattuali più brevi per mantenere flessibilità
+    - Evitare grandi sconti a uso impegnato senza comprendere i costi di migrazione
+    - Usare prezzi spot/preemptible piuttosto che istanze riservate a lungo termine dove possibile
+
+Accettazione vs Evitamento del Lock-In:
+In pratica, un certo grado di lock-in è accettabile in cambio dei guadagni di produttività ed
+efficienza dei servizi gestiti. La chiave è prendere decisioni consapevoli e informate piuttosto che
+accumulare lock-in accidentalmente.
+
+  Basso rischio lock-in:                    Alto rischio lock-in:
+    VM standard (IaaS)                          Motori DB proprietari
+    Database open-source                        Piattaforme ML proprietarie
+    Kubernetes (container)                      Serverless provider-specifico
+    API object S3-compatible                    Formati dati proprietari
+    Terraform (IaC)                             IaC solo nativa del provider
+
+
+5.6 Criteri di valutazione aggiuntivi
+---------------------------------------
+
+TOTAL COST OF OWNERSHIP (TCO)
+Il cloud sembra più economico a prima vista (nessun CapEx), ma l'analisi TCO deve includere:
+
+  Acquisto hardware:         On-Premises = CapEx (ogni 3-5 anni)   / Cloud = Incluso nel costo del servizio
+  Spazio/energia DC:         On-Premises = Significativo OpEx       / Cloud = Incluso
+  Staff IT per infrastruttura: On-Premises = Alto                  / Cloud = Ridotto (ma non zero)
+  Costi compute/storage:     On-Premises = Fissi (indipendentemente dall'uso) / Cloud = Variabili (per uso)
+  Egress/trasferimento dati: On-Premises = Basso (rete interna)    / Cloud = Può essere significativo
+  Licenze software:          On-Premises = Acquisto separato        / Cloud = Spesso incluse (SaaS)
+  Disaster recovery:         On-Premises = Investimento separato    / Cloud = Spesso integrato
+
+  Punto chiave: il cloud può essere più economico per workload variabili o imprevedibili, ma
+  l'on-premises può essere più economico per workload grandi, stabili e prevedibili su scala.
+
+DISPONIBILITÀ E AFFIDABILITÀ
+  - Qual è lo SLA del provider per ogni servizio?
+  - Vengono usate più Availability Zone per la ridondanza?
+  - Il track record del provider sulle interruzioni è accettabile?
+  - Qual è la procedura di recovery se il servizio cloud si interrompe?
+
+INTEROPERABILITÀ
+  - Il servizio cloud può integrarsi con i sistemi on-premises esistenti?
+  - Supporta protocolli e API standard?
+  - Come gestisce la sincronizzazione dati tra cloud e on-premises?
+  - Funziona con i sistemi di gestione delle identità esistenti?
+
+SUPPORTO E SERVICE MANAGEMENT
+  - Quale livello di supporto offre il provider (basic, business, enterprise)?
+  - Qual è il tempo di risposta previsto per gli incidenti critici?
+  - Il provider offre professional services per assistenza nella migrazione?
+  - Esiste un ecosistema di partner per supporto e servizi aggiuntivi?
+
+
+MODULE 6 - FRAMEWORK DI DECISIONE CLOUD
+=========================================
+
+6.1 Cloud Readiness Assessment
+--------------------------------
+Prima di adottare il cloud, le organizzazioni dovrebbero condurre un Cloud Readiness Assessment
+per valutare:
+
+  Readiness tecnica     - Le applicazioni sono cloud-compatible? Ci sono dipendenze da risorse solo on-prem?
+  Readiness competenze  - Il team ha skill cloud? Quale formazione è necessaria?
+  Readiness processi    - Sono in atto pratiche DevOps/Agile? I processi di governance sono cloud-aware?
+  Readiness finanziaria - Il modello di budget è abbastanza flessibile per supportare spesa basata su OpEx?
+  Readiness sicurezza   - Le policy di sicurezza sono aggiornate per gli ambienti cloud?
+  Readiness compliance  - Tutti i requisiti normativi sono stati mappati ai controlli cloud?
+
+
+6.2 Classificazione dei Workload
+----------------------------------
+Non tutti i workload sono ugualmente adatti al cloud. I team IT dovrebbero classificarli
+su più dimensioni:
+
+  Workload variabili/stagionali    - Adattabilità cloud: ***** - L'elasticità elimina il sovra-provisioning
+  Nuove applicazioni cloud-native  - Adattabilità cloud: ***** - Costruite per il cloud fin dall'inizio
+  Ambienti Dev/Test                - Adattabilità cloud: ***** - Start/stop on demand, nessun costo inattivo
+  Batch processing / HPC           - Adattabilità cloud: ****  - Compute grande on-demand, si paga solo durante i job
+  Web application                  - Adattabilità cloud: ****  - Presenza globale, CDN, auto-scaling
+  Strumenti collaboration          - Adattabilità cloud: ****  - Alternative SaaS spesso superiori
+  Applicazioni monolitiche legacy  - Adattabilità cloud: **    - Difficili da ottimizzare senza refactoring
+  Applicazioni latency-sensitive   - Adattabilità cloud: **    - Possono richiedere deploy edge o private cloud
+  Dati fortemente regolamentati    - Adattabilità cloud: **    - Può essere richiesto private o sovereign cloud
+  Workload mainframe               - Adattabilità cloud: *     - Molto difficili da migrare; tipicamente restano on-premises
+
+
+6.3 Cloud Selection Checklist
+-------------------------------
+
+Sicurezza e Compliance:
+  [ ] Il provider ha le certificazioni di compliance richieste (SOC2, ISO 27001, PCI-DSS, ecc.)
+  [ ] La cifratura a riposo e in transito è supportata
+  [ ] Le chiavi di cifratura gestite dal cliente (BYOK) sono disponibili
+  [ ] IAM con MFA e RBAC è disponibile
+  [ ] Audit logging e integrazione SIEM sono disponibili
+
+Privacy e Data Residency:
+  [ ] I dati possono essere memorizzati nella regione geografica richiesta
+  [ ] Gli accordi di elaborazione dati (DPA/BAA) sono disponibili
+  [ ] L'accesso del provider ai dati del cliente è contrattualmente limitato
+  [ ] La portabilità e l'esportazione dei dati sono supportate
+
+Performance:
+  [ ] Lo SLA pubblicato soddisfa i requisiti aziendali
+  [ ] La latenza di rete verso gli utenti target è accettabile
+  [ ] IOPS e throughput dello storage soddisfano i requisiti applicativi
+  [ ] I test di benchmark validano le affermazioni sulle performance
+
+Vendor Lock-In:
+  [ ] Vengono usati standard e API aperti dove possibile
+  [ ] Esiste un piano documentato di uscita/migrazione
+  [ ] La portabilità dei dati è testata (è possibile esportare i propri dati?)
+  [ ] Le dipendenze da servizi proprietari sono documentate e accettate
+
+Costi:
+  [ ] Analisi TCO completata (cloud vs on-premises)
+  [ ] Monitoraggio costi e alerting sul budget sono configurati
+  [ ] I prezzi riservati/committed sono valutati per workload stabili
+  [ ] I costi di egress dei dati sono modellati
+
+
+MAPPA CONCETTUALE RIEPILOGATIVA
+=================================
+
+CLOUD COMPUTING FONDAMENTALI
+|
++-- COS'E' IL CLOUD COMPUTING?
+|   +-- Erogazione on-demand di servizi IT via Internet
+|   +-- Storia: Mainframe → Client-Server → Internet → Virtualizzazione → Cloud → Cloud-Native
+|   +-- Ruolo: CapEx→OpEx, velocità, innovazione, presenza globale
+|
++-- 5 CARATTERISTICHE ESSENZIALI (NIST)
+|   +-- 1. On-Demand Self-Service (nessuna interazione umana con il provider)
+|   +-- 2. Broad Network Access (qualsiasi dispositivo, ovunque)
+|   +-- 3. Resource Pooling (multi-tenancy, infrastruttura condivisa)
+|   +-- 4. Rapid Elasticity (auto scale-out e scale-in)
+|   +-- 5. Measured Service (metering pay-per-use)
+|
++-- MODELLI DI EROGAZIONE DEI SERVIZI
+|   +-- IaaS: VM, storage, networking → il cliente gestisce OS e superiori
+|   +-- PaaS: runtime, DB, middleware → il cliente gestisce app e dati
+|   +-- SaaS: applicazione completa → il cliente gestisce solo i dati
+|   +-- Estesi: FaaS - CaaS - DBaaS - DRaaS - SECaaS - AIaaS
+|
++-- MODELLI DI DEPLOYMENT
+|   +-- Public Cloud: condiviso, di proprietà del provider (AWS, Azure, GCP)
+|   +-- Private Cloud: dedicato, pieno controllo (VMware, OpenStack)
+|   +-- Hybrid Cloud: on-prem + pubblico, orchestrato (bursting, tiering)
+|   +-- Multi-Cloud: più provider (evitare lock-in, best-of-breed)
+|   +-- Community Cloud: condiviso da organizzazioni con requisiti comuni
+|
++-- CRITERI DI VALUTAZIONE
+    +-- Sicurezza: IAM - Cifratura - CSPM - Shared Responsibility
+    +-- Privacy: Data residency - Sovereignty - GDPR - CCPA
+    +-- Compliance: ISO 27001 - SOC2 - PCI-DSS - HIPAA - FedRAMP
+    +-- Performance: Latenza - IOPS - SLA - Noisy neighbor - Benchmarking
+    +-- Vendor Lock-In: Service/Data/Skills lock-in - Strategie di mitigazione
+    +-- Aggiuntivi: TCO - Disponibilità - Interoperabilità - Supporto
+
+
+========================================
+Fine del documento
+========================================

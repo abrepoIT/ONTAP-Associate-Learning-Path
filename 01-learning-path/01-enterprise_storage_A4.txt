@@ -1,0 +1,957 @@
+INDUSTRY ESSENTIALS: ENTERPRISE STORAGE
+========================================
+
+
+MODULE 1 - DATA CENTER INFRASTRUCTURE
+======================================
+
+1.1 Cos'è un Data Center?
+--------------------------
+Un data center è una struttura fisica dedicata ad ospitare l'infrastruttura IT di un'organizzazione.
+Non è solo una "sala server": è un ecosistema complesso che include hardware, software, connessioni
+di rete, sistemi di alimentazione ridondanti, raffreddamento avanzato, e sistemi di sicurezza fisica
+e logica.
+
+Funzioni primarie di un Data Center:
+  - Processing: esecuzione di applicazioni e workload aziendali
+  - Storage: conservazione e disponibilità dei dati
+  - Networking: connessione tra utenti, sistemi interni e reti esterne (Internet)
+  - Security: protezione fisica e logica delle risorse IT
+  - Business Continuity: garantire disponibilità 24/7 tramite ridondanza e failover
+
+Classificazione Tier (Uptime Institute)
+L'industria classifica i data center in 4 Tier in base alla disponibilità garantita:
+
+  Tier I   - Disponibilità: 99,671% - Max downtime annuo: ~28 ore    - Ridondanza: Nessuna
+  Tier II  - Disponibilità: 99,741% - Max downtime annuo: ~22 ore    - Ridondanza: Parziale
+  Tier III - Disponibilità: 99,982% - Max downtime annuo: ~1,6 ore   - Ridondanza: N+1 (manutenzione senza downtime)
+  Tier IV  - Disponibilità: 99,995% - Max downtime annuo: ~26 minuti - Ridondanza: Fault-tolerant, completamente ridondante
+
+Tipologie di Data Center:
+  On-Premises  - Gestito internamente dall'azienda. Pro: controllo totale, sicurezza. Contro: costi elevati, manutenzione complessa.
+  Colocation   - Spazio fisico affittato in struttura terza. Pro: risparmio su infrastruttura fisica. Contro: meno controllo sull'ambiente.
+  Cloud        - Virtualizzato e gestito da provider (AWS, Azure, GCP). Pro: scalabilità, pay-per-use. Contro: dipendenza dal provider, latenza.
+  Edge         - Distribuito vicino a utenti o dispositivi IoT. Pro: bassa latenza, elaborazione locale. Contro: gestione distribuita complessa.
+  Hyperscale   - Data center enormi (Google, Meta, Amazon). Pro: massima efficienza, automazione. Contro: solo per grandi organizzazioni.
+
+
+1.2 Componenti dell'infrastruttura IT enterprise
+-------------------------------------------------
+Un'infrastruttura IT enterprise è composta da diversi layer interconnessi. Ogni componente ha un
+ruolo specifico e critico.
+
+SERVER
+I server sono computer ad alte prestazioni progettati per erogare servizi ad altri sistemi (client o
+altri server).
+
+Tipi:
+  - Tower Server: formato verticale, usato in ambienti small business
+  - Rack Server: montato in armadi rack standard (1U, 2U, 4U), molto comune nei data center
+  - Blade Server: ultra-compatto, inserito in chassis condivisi (risparmio energetico e di spazio)
+  - Modular/Converged: integrano compute, storage e networking in un unico sistema
+
+Componenti chiave del server:
+  - CPU (uno o più processori multi-core)
+  - RAM (memoria volatile, ECC DRAM per affidabilità)
+  - Storage locale (HDD/SSD/NVMe)
+  - Schede di rete (NIC - Network Interface Card)
+  - BMC/IPMI (gestione remota out-of-band)
+
+STORAGE
+Dispositivi dedicati alla persistenza dei dati. Può essere locale (DAS) o condiviso in rete
+(NAS/SAN). Trattato in dettaglio nei moduli successivi.
+
+NETWORKING
+L'infrastruttura di rete connette tutti i componenti del data center tra loro e con l'esterno.
+
+Componenti principali:
+  - Switch: instrada il traffico a livello L2 (MAC) e L3 (IP)
+  - Router: gestisce il traffico tra reti diverse
+  - Firewall: filtra il traffico e protegge la rete
+  - Load Balancer: distribuisce il traffico su più server
+  - Top-of-Rack (ToR) Switch: switch posizionati in cima a ogni rack
+
+Topologie di rete comuni nei data center:
+  - Spine-Leaf: architettura a due livelli (spine = core, leaf = accesso), bassa latenza e alta scalabilità
+  - Three-Tier: core, distribution, access - classica ma meno scalabile
+
+VIRTUALIZZAZIONE
+La virtualizzazione permette di eseguire più macchine virtuali (VM) su un singolo server fisico
+tramite un hypervisor.
+
+Tipi di hypervisor:
+  - Tipo 1 (Bare-metal): gira direttamente sull'hardware (VMware ESXi, Microsoft Hyper-V, KVM)
+  - Tipo 2 (Hosted): gira sopra un OS (VirtualBox, VMware Workstation)
+
+Vantaggi della virtualizzazione:
+  - Consolidamento dei server (riduzione dell'hardware fisico)
+  - Isolamento dei workload
+  - Live migration delle VM
+  - Snapshot e backup semplificati
+
+ALIMENTAZIONE E RAFFREDDAMENTO
+
+Alimentazione:
+  - UPS (Uninterruptible Power Supply): fornisce alimentazione di emergenza durante i blackout
+  - PDU (Power Distribution Unit): distribuisce l'alimentazione ai rack
+  - Generatori diesel: per interruzioni prolungate
+  - Ridondanza: configurazioni N+1, 2N
+
+Raffreddamento:
+  - CRAC/CRAH (Computer Room Air Conditioning/Handler): unità di condizionamento dedicate
+  - Hot aisle / Cold aisle: organizzazione dei rack per ottimizzare il flusso d'aria
+  - Liquid cooling: per sistemi ad alta densità
+  - PUE (Power Usage Effectiveness): metrica di efficienza energetica (ideale: vicino a 1,0)
+
+SOFTWARE DI GESTIONE
+  - DCIM (Data Center Infrastructure Management): monitoraggio integrato di hardware, alimentazione e raffreddamento
+  - Orchestration: Kubernetes, VMware vCenter, OpenStack
+  - Monitoring: Nagios, Zabbix, Prometheus, Grafana
+  - ITSM (IT Service Management): ServiceNow, JIRA Service Management
+
+
+MODULE 2 - COME FUNZIONANO I SUPPORTI DI STORAGE
+==================================================
+
+2.1 Tipi di supporti di storage
+---------------------------------
+
+HDD - HARD DISK DRIVE
+Gli HDD sono dispositivi di storage elettromeccanici che usano piatti magnetici rotanti per leggere
+e scrivere dati.
+
+Funzionamento interno:
+  1. Uno o più piatti in alluminio o vetro rivestiti di materiale magnetico girano ad alta velocità (5.400 - 15.000 RPM)
+  2. Le testine di lettura/scrittura fluttuano sopra i piatti a pochi nanometri di distanza
+  3. Un braccio attuatore posiziona le testine sulla traccia corretta
+  4. Il controller gestisce le operazioni di I/O
+
+Struttura dati del disco:
+  - Tracce: cerchi concentrici su ogni piatto
+  - Settori: segmenti di ogni traccia (tipicamente 512 byte o 4KB)
+  - Cilindri: insieme di tracce allo stesso raggio su tutti i piatti
+  - Cluster: unità minima di allocazione del filesystem
+
+Parametri di performance:
+  - Seek time: tempo per posizionare la testina sulla traccia corretta (ms)
+  - Rotational latency: attesa che il settore passi sotto la testina (ms)
+  - Transfer rate: velocità effettiva di trasferimento dati (MB/s)
+
+Tipi di HDD:
+  Desktop/NAS           - 5.400-7.200 RPM  - Uso: Home, NAS consumer
+  Enterprise SATA       - 7.200 RPM        - Uso: Storage secondario, backup
+  Enterprise SAS        - 10.000-15.000 RPM - Uso: Storage enterprise primario
+  SMR (Shingled)        - Variabile         - Uso: Archivio, alta capacità
+  CMR/PMR               - Variabile         - Uso: Standard, scritture random
+
+
+SSD - SOLID STATE DRIVE
+Gli SSD non hanno parti meccaniche in movimento: i dati sono memorizzati in celle di memoria flash
+NAND.
+
+Funzionamento:
+  - Le celle NAND memorizzano i dati come cariche elettriche in transistor a gate flottante
+  - Il controller SSD gestisce: wear leveling, garbage collection, ECC (Error Correcting Code), caching
+  - La cache DRAM (presente negli SSD di fascia alta) accelera le operazioni di lettura/scrittura
+
+Tipi di celle NAND:
+  SLC (Single Level Cell) - 1 bit/cella  - Densità: Bassa      - Velocità: Massima - Cicli P/E: ~100.000  - Costo: Molto alto
+  MLC (Multi Level Cell)  - 2 bit/cella  - Densità: Media      - Velocità: Alta    - Cicli P/E: ~10.000   - Costo: Alto
+  TLC (Triple Level Cell) - 3 bit/cella  - Densità: Alta       - Velocità: Media   - Cicli P/E: ~3.000    - Costo: Medio
+  QLC (Quad Level Cell)   - 4 bit/cella  - Densità: Molto alta - Velocità: Bassa   - Cicli P/E: ~1.000    - Costo: Basso
+  PLC (Penta Level Cell)  - 5 bit/cella  - Densità: Massima    - Velocità: Bassa   - Cicli P/E: <1.000    - Costo: Molto basso
+
+Struttura interna:
+  - Die: chip NAND fisico
+  - Plane: suddivisione del die per operazioni parallele
+  - Block: unità minima di cancellazione (~256 pagine)
+  - Page: unità minima di lettura/scrittura (4KB - 16KB)
+
+Concetti chiave degli SSD:
+  - Wear Leveling: distribuisce le scritture su tutte le celle per estendere la vita
+  - Garbage Collection: recupera i blocchi liberati per renderli disponibili a nuove scritture
+  - Over-provisioning: spazio extra riservato (non visibile) per la gestione interna e le performance
+  - TRIM: comando che notifica all'SSD quali blocchi non contengono più dati validi
+  - TBW (Terabytes Written): metrica di durabilità che indica quanti TB si possono scrivere
+
+
+NVMe - NON-VOLATILE MEMORY EXPRESS
+NVMe è un protocollo di comunicazione (non un tipo di supporto) ottimizzato per SSD connessi
+direttamente al bus PCIe (PCI Express).
+
+Perché NVMe è più veloce di SATA/SAS:
+  - SATA è stato progettato per HDD: supporta 1 coda con 32 comandi
+  - NVMe supporta 65.535 code con 65.535 comandi ciascuna → parallelismo massimo
+  - Latenza NVMe: ~20-100 µs vs ~100 µs (SATA SSD) vs ~5-10 ms (HDD)
+
+Form factor NVMe comuni:
+  - M.2: scheda piccola, per laptop e desktop
+  - U.2 / U.3: 2,5" enterprise, per server
+  - EDSFF (E1.S, E3.S): nuovi standard per data center ad alta densità
+  - Add-in Card (AIC): scheda PCIe full
+
+2.2 Confronto completo: HDD vs SSD vs NVMe
+-------------------------------------------
+
+  Velocità lettura sequenziale:
+    HDD:        100-200 MB/s
+    SSD SATA:   500-600 MB/s
+    SSD NVMe:   3.000-7.000 MB/s
+
+  Velocità scrittura sequenziale:
+    HDD:        100-200 MB/s
+    SSD SATA:   400-550 MB/s
+    SSD NVMe:   2.000-6.500 MB/s
+
+  IOPS (4K random read):
+    HDD:        100-200
+    SSD SATA:   80.000-100.000
+    SSD NVMe:   500.000-1.000.000+
+
+  Latenza:
+    HDD:        5-10 ms
+    SSD SATA:   ~100 µs
+    SSD NVMe:   20-100 µs
+
+  Capacità max (consumer):
+    HDD:        20+ TB
+    SSD SATA:   4-8 TB
+    SSD NVMe:   4-8 TB
+
+  Capacità max (enterprise):
+    HDD:        30+ TB
+    SSD SATA:   15+ TB
+    SSD NVMe:   30+ TB (U.2)
+
+  Affidabilità:
+    HDD:        Soggetto a guasti meccanici
+    SSD SATA:   Alta
+    SSD NVMe:   Alta
+
+  Consumo tipico:
+    HDD:        6-10 W
+    SSD SATA:   2-5 W
+    SSD NVMe:   5-10 W
+
+  Rumorosità:
+    HDD:        Sì
+    SSD SATA:   No
+    SSD NVMe:   No
+
+  Costo per TB:
+    HDD:        Basso (~$15-30)
+    SSD SATA:   Medio (~$60-100)
+    SSD NVMe:   Alto (~$100-200+)
+
+
+MODULE 3 - COMPONENTI DI UN SISTEMA DI STORAGE
+================================================
+
+3.1 Cos'è un Storage System (Storage Array)?
+---------------------------------------------
+Uno storage array è un sistema hardware dedicato esclusivamente alla gestione e all'erogazione di
+capacità di storage ai server. A differenza dello storage locale (DAS), offre:
+
+  - Condivisione: più server possono accedere agli stessi dati
+  - Ridondanza hardware: più controller, alimentatori ridondanti, drive hot-spare
+  - Gestione avanzata: snapshot, replication, tiering, deduplication, compressione
+  - Alta disponibilità: failover automatico in caso di guasto di un componente
+
+
+3.2 Architettura dei Controller
+---------------------------------
+Il controller è il componente centrale di ogni storage array. Gestisce tutto il traffico I/O tra i
+server host e i drive fisici.
+
+Componenti interni del controller:
+  CPU          - Elabora le operazioni I/O, gestisce la logica RAID e le feature software
+  RAM/DRAM     - Cache di lettura e scrittura ad alta velocità
+  NVRAM/NVDIMM - Cache di scrittura non volatile (dati persistenti anche in caso di perdita di corrente)
+  Host Ports   - Porte di connessione verso i server (FC, iSCSI, NVMe-oF, NFS, SMB)
+  Drive Ports  - Porte di connessione verso gli shelf di drive (SAS, NVMe)
+  Mgmt Port    - Porta dedicata per la gestione out-of-band dell'array
+  Firmware     - Software embedded che gestisce il funzionamento dell'intero sistema
+
+Dual Controller (HA - High Availability):
+La grande maggioranza dei sistemi di storage enterprise usa due controller identici in
+configurazione
+Active-Active o Active-Passive:
+
+  - Active-Active: entrambi i controller elaborano I/O simultaneamente → massime performance e failover trasparente
+  - Active-Passive: un controller è primario, l'altro in standby → failover più lento ma più semplice
+
+In caso di guasto di un controller, l'altro esegue automaticamente il takeover senza interruzione
+del servizio.
+
+
+3.3 Il Caching
+---------------
+La cache è fondamentale per le performance di un moderno sistema di storage.
+
+Cache di lettura:
+Memorizza in memoria ad alta velocità (DRAM o NVMe) i dati letti di recente o più frequentemente
+acceduti.
+  - Hit ratio: percentuale di richieste servite dalla cache (più alto = meglio)
+  - Algoritmi: LRU (Least Recently Used), LFU (Least Frequently Used), prefetching predittivo
+
+Cache di scrittura:
+Accetta le scritture in memoria veloce prima di scrivere i dati su disco.
+
+  Write-Back:   Dato scritto in cache, ACK immediato all'host, scaricato su disco in background.
+                Vantaggio: alte performance. Rischio: perdita dati senza protezione della cache.
+  Write-Through: Dato scritto simultaneamente su cache e disco, ACK dopo conferma disco.
+                Vantaggio: sicuro. Svantaggio: più lento.
+
+Protezione della Write Cache:
+  - NVRAM: RAM con batteria o supercondensatori → dati preservati anche in caso di mancanza di corrente
+  - Cache mirroring: il contenuto della cache viene replicato sul secondo controller
+
+Caching Multi-Tier:
+I sistemi avanzati implementano più livelli di cache:
+  L1: DRAM (ultra-veloce, costosa, piccola)
+  L2: NVMe SSD (molto veloce, costo medio, più grande)
+  L3: SAS/SATA SSD (veloce, accessibile, grande)
+  L4: HDD (lento, molto economico, enorme)
+
+Il software di tiering automatico sposta i dati tra i livelli in base alla frequenza di accesso
+(dati "hot" = tier superiori, dati "cold" = tier inferiori).
+
+
+3.4 Storage Cluster e Networking Interno
+-----------------------------------------
+
+Storage Cluster:
+Più storage array (nodi) possono essere connessi insieme per formare un cluster che si presenta come
+un unico sistema logico.
+
+Vantaggi del clustering:
+  - Scalabilità: aggiunta di nodi per aumentare capacità e IOPS
+  - Load balancing: distribuzione automatica dei workload
+  - Alta disponibilità: nessun single point of failure
+  - Global namespace: tutti i dati accessibili da qualsiasi nodo del cluster
+
+Rete interna del cluster:
+  - Switch ad alta velocità dedicati (10/25/40/100 GbE o InfiniBand)
+  - La bassa latenza è critica per la consistenza dei dati
+
+Esempio - NetApp ONTAP Cluster:
+NetApp ONTAP può essere configurato come cluster fino a 24 nodi. I dati sono distribuiti su tutti i
+nodi tramite aggregates e volumi, con accesso trasparente indipendentemente da quale nodo gestisce
+la richiesta.
+
+
+3.5 Scale-Up vs Scale-Out
+---------------------------
+
+SCALE-UP (Scaling verticale):
+Espansione del sistema aggiungendo risorse al sistema esistente: più drive, più shelf, più cache,
+processori più potenti.
+
+Esempio pratico:
+  - Un array parte con 24 drive → vengono aggiunti shelf di espansione → arriva a 100+ drive
+  - Gli HDD vengono sostituiti con SSD per aumentare le performance
+
+Quando usarlo:
+  - Workload consolidato su un unico sistema
+  - La semplicità di gestione è prioritaria
+  - Budget limitato per la complessità
+
+Limitazioni:
+  - Limite fisico del sistema (massimo drive supportati, porte, memoria)
+  - Gli upgrade spesso richiedono downtime
+  - Bottleneck del controller se non aggiornato
+
+SCALE-OUT (Scaling orizzontale):
+Espansione del sistema aggiungendo nuovi nodi al cluster esistente. Capacità, IOPS e banda crescono
+quasi linearmente.
+
+Quando usarlo:
+  - Crescita dei dati rapida e imprevedibile
+  - Workload distribuiti (object storage, big data, analytics)
+  - Necessità di scalabilità "infinita"
+
+Limitazioni:
+  - Maggiore complessità di gestione
+  - Latenza intra-cluster (comunicazione inter-nodo)
+  - Costo iniziale più elevato
+
+Confronto Scale-Up vs Scale-Out:
+  Complessità:          Scale-Up = Bassa          / Scale-Out = Media-Alta
+  Scalabilità massima:  Scale-Up = Limitata        / Scale-Out = Quasi illimitata
+  Costo iniziale:       Scale-Up = Basso           / Scale-Out = Medio-Alto
+  Performance lineare:  Scale-Up = No              / Scale-Out = Sì
+  Gestione:             Scale-Up = Sistema singolo / Scale-Out = Cluster distribuito
+  Ideale per:           Scale-Up = DB singolo, app legacy / Scale-Out = Cloud, big data, object storage
+
+
+3.6 Opzioni di Storage System
+-------------------------------
+
+ALL-FLASH ARRAY (AFA):
+Usa solo SSD o NVMe. Progettato per le massime performance.
+  - Latenza sub-millisecondo
+  - Milioni di IOPS
+  - Efficienza dei dati (dedup, compressione) per ridurre il costo effettivo per GB
+  - Ideale per: database OLTP, VDI, applicazioni mission-critical
+  Esempi: NetApp AFF, Pure Storage FlashArray, Dell PowerStore
+
+HYBRID ARRAY:
+Mix di SSD (hot tier) e HDD (cold tier). Il software di tiering automatico sposta i dati tra i
+livelli.
+  - Buon equilibrio costo/performance
+  - Gestione del tiering trasparente
+  - Ideale per: workload misti, ambienti che non richiedono sempre le massime performance
+  Esempi: NetApp FAS, Dell PowerVault
+
+OBJECT STORAGE:
+Memorizza i dati come oggetti (non file o blocchi), ognuno con un ID univoco e metadati estesi.
+  - Scala fino a petabyte e oltre
+  - Accesso via REST API (S3, Swift)
+  - Ideale per: backup, archivio, media, big data, cloud-native
+  Esempi: NetApp StorageGRID, MinIO, Ceph
+
+SOFTWARE-DEFINED STORAGE (SDS):
+Il software di storage gira su hardware commodity x86.
+  - Separazione tra hardware e software
+  - Flessibilità e portabilità
+  Esempi: VMware vSAN, NetApp ONTAP Select, Ceph
+
+
+MODULE 4 - CONNETTIVITÀ E INTERFACCE DI STORAGE
+=================================================
+
+4.1 Connettività Server-Storage - Panoramica
+---------------------------------------------
+La connettività tra server e storage è uno dei fattori più critici per le performance
+dell'infrastruttura IT. La scelta della tecnologia dipende da: latenza richiesta, banda, distanza,
+budget e protocollo applicativo.
+
+Schema di connettività:
+  SERVER
+    |
+    +-- DAS (Direct Attached Storage) -----> HDD/SSD direttamente sul server
+    |
+    +-- SAN (Storage Area Network) --------> Rete dedicata, accesso a livello di blocco
+    |     +-- Fibre Channel (FC)
+    |     +-- iSCSI
+    |     +-- FCoE
+    |     +-- NVMe-oF (NVMe over Fabrics)
+    |
+    +-- NAS (Network Attached Storage) ----> Rete IP, accesso a livello di file
+          +-- NFS (Linux/Unix)
+          +-- SMB/CIFS (Windows)
+
+
+4.2 DAS - Direct Attached Storage
+-----------------------------------
+Lo storage è connesso direttamente al server senza passare per una rete.
+
+Interfacce DAS comuni:
+  - SATA III: fino a 600 MB/s, economico, per HDD e SSD consumer
+  - SAS (Serial Attached SCSI): fino a 12 Gbps (SAS-3) o 24 Gbps (SAS-4), enterprise, affidabile
+  - NVMe (PCIe): fino a 32 GB/s (PCIe 4.0 x4), latenza minima
+
+Casi d'uso DAS:
+  - Server standalone con storage locale
+  - Infrastruttura hyper-converged (HCI) come VMware vSAN, Nutanix
+  - Applicazioni con requisiti di latenza estrema (high-frequency trading)
+  - Drive di boot del sistema operativo
+
+Limitazioni DAS:
+  - Non condivisibile tra più server (a meno di clustering software come HCI)
+  - Se il server si guasta, lo storage può diventare inaccessibile
+  - Gestione frammentata (ogni server ha il suo storage)
+
+
+4.3 SAN - Storage Area Network
+--------------------------------
+Una SAN è una rete dedicata ad alta velocità che connette server e storage a livello di blocco. I
+server vedono i LUN (Logical Unit Numbers) come dischi fisici locali.
+
+FIBRE CHANNEL (FC)
+Il protocollo SAN enterprise per eccellenza.
+
+Caratteristiche:
+  - Velocità: 8, 16, 32, 64 Gbps
+  - Bassa latenza e alta affidabilità
+  - Rete completamente separata dalla rete IP (richiede switch FC dedicati = director o fabric switch)
+  - Protocollo: FCP (Fibre Channel Protocol)
+
+Componenti:
+  - HBA (Host Bus Adapter): scheda nel server per la connessione FC
+  - FC Switch / Director: switch di rete Fibre Channel
+  - Target Port: porte dello storage array
+
+Topologie FC:
+  - Point-to-Point: connessione diretta tra server e storage (raro)
+  - Arbitrated Loop (FC-AL): obsoleto
+  - Switched Fabric: ogni dispositivo si connette allo switch, scalabile (standard moderno)
+
+WWN (World Wide Name): indirizzo univoco di ogni porta FC (simile al MAC address in Ethernet)
+
+
+iSCSI - INTERNET SMALL COMPUTER SYSTEMS INTERFACE Trasporta il protocollo SCSI su TCP/IP,
+permettendo di creare SAN usando reti Ethernet standard.
+
+Caratteristiche:
+  - Velocità: 1, 10, 25, 40, 100 GbE
+  - Più economico di FC (usa switch Ethernet standard)
+  - Configurazione più semplice
+  - Latenza leggermente superiore a FC
+
+Componenti:
+  - iSCSI Initiator: software o hardware (iSCSI HBA) nel server
+  - iSCSI Target: porta dello storage array
+  - iSNS (Internet Storage Name Service): servizio di discovery delle risorse iSCSI
+
+Best practices:
+  - VLAN dedicata per il traffico iSCSI
+  - Multipath I/O (MPIO) per ridondanza e load balancing
+  - Jumbo Frames (MTU 9000) per ridurre l'overhead
+
+
+FCoE - FIBRE CHANNEL OVER ETHERNET
+Incapsula il traffico Fibre Channel su Ethernet 10GbE+, permettendo di unificare reti FC e IP su
+un'unica infrastruttura Ethernet.
+  - Richiede DCB (Data Center Bridging) per garantire Ethernet "lossless"
+  - Converged Network Adapter (CNA) sostituisce sia NIC che HBA
+
+
+NVMe-oF - NVMe OVER FABRICS
+Estende il protocollo NVMe sulle reti di storage, portando le performance dello storage NVMe locale
+ad architetture condivise.
+
+Trasporti supportati:
+  - NVMe/FC: NVMe su Fibre Channel
+  - NVMe/RoCE: NVMe su Ethernet con RDMA (latenza <10 µs)
+  - NVMe/TCP: NVMe su TCP/IP standard (più facile da implementare)
+
+Perché NVMe-oF è rivoluzionario:
+  - Latenza paragonabile allo storage NVMe locale
+  - Adatto per applicazioni AI/ML, database in-memory, analytics real-time
+
+
+4.4 NAS - Network Attached Storage
+-------------------------------------
+Un NAS è un sistema di storage che espone i dati come filesystem condivisi tramite reti IP standard.
+
+NFS - NETWORK FILE SYSTEM
+Protocollo sviluppato da Sun Microsystems, standard de facto per ambienti Linux/Unix.
+
+  NFSv3   - Stateless, ampiamente supportato, semplice
+  NFSv4   - Stateful, sicurezza migliorata (Kerberos), supporto ACL
+  NFSv4.1 - pNFS (parallel NFS), accesso parallelo a più server
+  NFSv4.2 - Server-side copy, sparse files, labeled NFS
+
+SMB/CIFS - SERVER MESSAGE BLOCK
+Protocollo Microsoft per la condivisione di file in ambienti Windows.
+
+  SMB 1.0   - Windows XP/2003 - Obsoleto, vulnerabile (WannaCry)
+  SMB 2.0   - Windows Vista/2008 - Riduzione chattiness, migliori performance
+  SMB 2.1   - Windows 7/2008 R2 - Large MTU, BranchCache
+  SMB 3.0   - Windows 8/2012 - Multichannel, encryption, SMB Direct (RDMA)
+  SMB 3.1.1 - Windows 10/2016+ - Pre-auth integrity, cifratura AES-128
+
+NAS vs SAN - Confronto:
+  Livello di accesso: NAS = File / SAN = Blocco
+  Protocolli:         NAS = NFS, SMB/CIFS / SAN = FC, iSCSI, NVMe-oF
+  Condivisione:       NAS = Nativa (più utenti/server) / SAN = Richiede cluster filesystem
+  Latenza:            NAS = Più alta / SAN = Più bassa
+  Complessità:        NAS = Bassa / SAN = Alta
+  Costo:              NAS = Inferiore / SAN = Superiore
+  Uso tipico:         NAS = File sharing, home dir, web / SAN = DB, VM, app mission-critical
+
+
+4.5 Interfacce di Storage - Riepilogo Completo
+------------------------------------------------
+  SATA III       - DAS - Velocità max: 600 MB/s  - Protocollo: ATA      - Uso: HDD/SSD consumer
+  SAS-3          - DAS - Velocità max: 12 Gbps   - Protocollo: SCSI     - Uso: HDD/SSD enterprise
+  SAS-4          - DAS - Velocità max: 24 Gbps   - Protocollo: SCSI     - Uso: HDD enterprise futuro
+  NVMe (PCIe4.0) - DAS - Velocità max: ~7 GB/s   - Protocollo: NVMe     - Uso: SSD ultra-performance
+  Fibre Channel  - SAN - Velocità max: 32 Gbps   - Protocollo: FCP      - Uso: Storage enterprise
+  iSCSI 25GbE    - SAN - Velocità max: 25 Gbps   - Protocollo: SCSI/TCP - Uso: SAN su Ethernet
+  NVMe/TCP       - SAN - Velocità max: 100 GbE+  - Protocollo: NVMe     - Uso: AI/HPC storage
+  NFS v4.1       - NAS - Dipende dalla rete       - Protocollo: NFS      - Uso: File sharing Linux
+  SMB 3.1.1      - NAS - Dipende dalla rete       - Protocollo: SMB      - Uso: File sharing Windows
+
+
+MODULE 5 - CLOUD STORAGE
+=========================
+
+5.1 Cloud Computing - Fondamenti
+----------------------------------
+Il cloud computing è un modello di erogazione di servizi IT via Internet, basato su cinque
+caratteristiche essenziali (definizione NIST):
+
+  1. On-demand self-service: provisioning automatico delle risorse senza intervento umano del provider
+  2. Broad network access: accesso da qualsiasi dispositivo con connessione Internet
+  3. Resource pooling: risorse condivise tra più utenti (multi-tenancy)
+  4. Rapid elasticity: scale up e down istantaneo
+  5. Measured service: pagamento in base al consumo effettivo (pay-per-use)
+
+Principali provider cloud:
+  AWS (Amazon)    - ~31% quota di mercato - Punto di forza: catalogo servizi più ampio, maggiore maturità
+  Azure (Microsoft) - ~25% - Punto di forza: integrazione ecosistema Microsoft, hybrid
+  GCP (Google)    - ~11% - Punto di forza: AI/ML, big data, Kubernetes (GKE)
+  Alibaba Cloud   - ~4%  - Punto di forza: mercato asiatico
+  Oracle Cloud    - ~2%  - Punto di forza: database, ERP enterprise
+
+
+5.2 Modelli di servizio Cloud
+-------------------------------
+
+IaaS - INFRASTRUCTURE AS A SERVICE
+Il provider offre risorse infrastrutturali virtualizzate: VM, storage, networking. Il cliente
+gestisce OS, middleware e applicazioni.
+
+  Responsabilità provider: hardware fisico, hypervisor, rete fisica, sicurezza fisica
+  Responsabilità cliente: OS, patching, middleware, applicazioni, dati, configurazione rete virtuale
+
+  Esempi: AWS EC2 + EBS, Azure Virtual Machines + Managed Disks, Google Compute Engine
+  Casi d'uso: lift-and-shift di applicazioni on-premises, ambienti dev/test, web hosting
+
+PaaS - PLATFORM AS A SERVICE
+Il provider offre una piattaforma completa per sviluppare, eseguire e gestire applicazioni, senza
+che il cliente gestisca l'infrastruttura sottostante.
+
+  Responsabilità provider: tutto fino a runtime e middleware
+  Responsabilità cliente: applicazioni e dati
+
+  Esempi: Google App Engine, Azure App Service, Heroku, AWS Elastic Beanstalk
+  Casi d'uso: sviluppo rapido di applicazioni web/mobile, DevOps, CI/CD
+
+SaaS - SOFTWARE AS A SERVICE
+Applicazioni complete accessibili via browser, senza gestire alcuna infrastruttura.
+
+  Responsabilità provider: tutto
+  Responsabilità cliente: solo i propri dati e configurazioni utente
+
+  Esempi: Microsoft 365, Google Workspace, Salesforce, Zoom, Dropbox
+  Casi d'uso: produttività aziendale, CRM, ERP, collaboration
+
+Modelli aggiuntivi:
+  FaaS (Function as a Service)       - Esecuzione di singole funzioni serverless - Es: AWS Lambda, Azure Functions
+  DBaaS (Database as a Service)      - Database gestiti senza amministrazione    - Es: AWS RDS, Azure SQL
+  STaaS (Storage as a Service)       - Storage cloud puro                        - Es: AWS S3, Azure Blob
+  DRaaS (Disaster Recovery as a Svc) - DR basato su cloud                        - Es: Zerto, Veeam Cloud Connect
+
+
+5.3 Tipologie di deployment Cloud
+-----------------------------------
+
+PUBLIC CLOUD
+Infrastruttura condivisa tra più organizzazioni (multi-tenant), gestita da un provider.
+  - Nessun investimento iniziale (CapEx → OpEx)
+  - Scalabilità immediata
+  - Responsabilità della sicurezza fisica sul provider
+  - Rischi: compliance, residenza dei dati, vendor lock-in
+
+PRIVATE CLOUD
+Infrastruttura dedicata a una singola organizzazione, gestita internamente o da un provider
+dedicato.
+  - Massimo controllo e personalizzazione
+  - Migliore isolamento e sicurezza
+  - Adatto per dati molto sensibili (banking, healthcare, government)
+  - Costi più elevati
+  Esempi tecnologie: VMware Cloud Foundation, OpenStack, NetApp Private Storage
+
+HYBRID CLOUD
+Combinazione di cloud pubblico e privato, integrati per condividere dati e workload.
+  - Workload sensibili on-premises, workload elastici su cloud pubblico
+  - Cloud bursting: durante i picchi di carico, overflow sul cloud pubblico
+  - Richiede connettività dedicata (VPN, ExpressRoute, Direct Connect)
+  Sfide: latenza, sicurezza dei dati in transito, consistenza delle policy
+
+MULTI-CLOUD
+Utilizzo di più provider di cloud pubblico simultaneamente.
+  - Evita il vendor lock-in
+  - Ottimizzazione dei costi (miglior servizio per ogni workload)
+  - Maggiore resilienza (il downtime di un provider non impatta tutto)
+  Sfida: gestione centralizzata, data governance
+
+
+5.4 Servizi e tipi di Cloud Storage
+--------------------------------------
+
+OBJECT STORAGE
+Come funziona: i dati sono memorizzati come oggetti con un ID univoco (hash), dati grezzi e metadati
+estesi. Non esiste una gerarchia di cartelle (flat namespace).
+  - Accesso via REST API (standard: Amazon S3)
+  - Scala fino a exabyte
+  - Ridondanza geografica integrata
+  - Ideale per: backup, archivio, media, dati non strutturati, siti web statici
+  Esempi: AWS S3, Azure Blob Storage, Google Cloud Storage, NetApp StorageGRID
+
+BLOCK STORAGE
+Come funziona: lo storage viene presentato come volumi a blocchi (come dischi virtuali). Il
+filesystem è gestito dal sistema operativo del server.
+  - Bassa latenza
+  - Adatto per database, VM, applicazioni che richiedono accesso diretto al disco
+  - Non condivisibile nativamente tra più VM (solo con cluster filesystem)
+  Esempi: AWS EBS (Elastic Block Store), Azure Managed Disks, Google Persistent Disk
+
+FILE STORAGE
+Come funziona: storage accessibile come filesystem condiviso via NFS o SMB.
+  - Condivisibile tra più VM/istanze contemporaneamente
+  - Ideale per: applicazioni legacy, CMS, ambienti di sviluppo condivisi, home directory
+  Esempi: Amazon EFS (NFS), Amazon FSx for Windows (SMB), Azure Files, Google Filestore
+
+ARCHIVE STORAGE
+Come funziona: storage a bassissimo costo per dati acceduti raramente o mai, con tempi di recupero
+da minuti a ore.
+  - Costo estremamente basso (pochi $/TB/mese)
+  - Ideale per: compliance a lungo termine, backup storici, dati legali
+  Esempi: AWS S3 Glacier, Azure Archive, Google Coldline
+
+Confronto tipi di Cloud Storage:
+  Block   - Latenza: ms        - Costo: Alto      - Condivisione: No (singolo host)  - Uso: DB, VM, OS
+  File    - Latenza: ms bassi  - Costo: Medio     - Condivisione: Sì (multi-host)    - Uso: File sharing, dev
+  Object  - Latenza: ms a s    - Costo: Basso     - Condivisione: Sì (via API)       - Uso: Backup, media, archivio
+  Archive - Latenza: min-ore   - Costo: Molto bas.- Condivisione: No                 - Uso: Compliance, archivio storico
+
+
+5.5 Casi d'uso Cloud Storage
+------------------------------
+  Backup e DR                  - Object/Archive - Es: Backup notturno su S3 Glacier
+  Static website hosting       - Object          - Es: S3 + CloudFront CDN
+  Database in produzione       - Block           - Es: RDS su EBS io2
+  File sharing team            - File            - Es: Azure Files + Azure AD
+  Video streaming / media      - Object          - Es: S3 + CDN
+  Big Data & Analytics         - Object          - Es: Data Lake su S3/ADLS
+  Archivio legale/compliance   - Archive         - Es: S3 Glacier Deep Archive
+  Backup VM                    - Block + Object  - Es: Snapshot → Object storage
+
+
+MODULE 6 - ASPETTI CRITICI DELLO STORAGE
+==========================================
+
+6.1 Disponibilità dei Dati
+---------------------------
+La disponibilità viene misurata come percentuale di tempo in cui un servizio è operativo (uptime).
+
+  99%     ("due nines")   - Downtime annuo: ~87 ore    - Downtime mensile: ~7,3 ore
+  99,9%   ("tre nines")   - Downtime annuo: ~8,7 ore   - Downtime mensile: ~43 minuti
+  99,99%  ("quattro nines") - Downtime annuo: ~52 min  - Downtime mensile: ~4,4 minuti
+  99,999% ("cinque nines")  - Downtime annuo: ~5 min   - Downtime mensile: ~26 secondi
+
+RAID - REDUNDANT ARRAY OF INDEPENDENT DISKS
+RAID distribuisce i dati su più drive fisici per garantire performance e/o ridondanza.
+
+RAID 0 - Striping
+  - Dati distribuiti su più drive senza ridondanza
+  - Massime performance, capacità totale = somma di tutti i drive
+  - Nessuna fault tolerance: se un drive fallisce, tutti i dati vanno persi
+  - Uso: video editing, ambienti temporanei ad alte performance
+
+RAID 1 - Mirroring
+  - Ogni dato viene scritto su due drive contemporaneamente
+  - Tollera il guasto di 1 drive (o più con >2 drive)
+  - Capacità = 50% del totale
+  - Uso: drive di boot del SO, sistemi critici
+
+RAID 5 - Striping con parità distribuita
+  - Dati e informazioni di parità distribuiti su N drive (min. 3)
+  - Tollera il guasto di 1 drive
+  - Capacità = (N-1) × dimensione drive
+  - Richiede rebuild dopo un guasto (performance calano e il rischio aumenta durante il rebuild)
+  - Uso: NAS, storage secondario, file server
+
+RAID 6 - Striping con doppia parità
+  - Come RAID 5 ma con due blocchi di parità per stripe
+  - Tollera il guasto di 2 drive contemporaneamente
+  - Capacità = (N-2) × dimensione drive
+  - Uso: storage con drive ad alta capacità (rebuild lungo = rischio maggiore)
+
+RAID 10 (1+0) - Mirroring + Striping
+  - Prima crea set mirror (RAID 1), poi fa striping tra questi (RAID 0)
+  - Tolleranza: almeno 1 drive per coppia mirror
+  - Capacità = 50% del totale
+  - Ottime performance, buona ridondanza
+  - Uso: database, ambienti virtualizzati mission-critical
+
+RAID-DP / Triple Parity (specifico NetApp):
+  - NetApp RAID-DP: doppia parità per grandi drive SATA
+  - NetApp RAID-TEC: tripla parità per drive >8TB
+
+Hot Spare:
+Un hot spare è un drive inutilizzato che viene automaticamente integrato nel RAID in caso di guasto,
+avviando immediatamente il rebuild senza intervento umano.
+
+Alta Disponibilità (HA) a livello di sistema:
+  - Controller ridondanti: failover automatico in <30 secondi
+  - Alimentatori ridondanti: configurazione N+1 o 2N
+  - Porte di rete ridondanti: multipathing lato host
+  - Drive hot-swappable: sostituzione a caldo senza spegnere il sistema
+  - Shelf di espansione ridondanti: percorsi multipli verso i drive
+
+
+6.2 Protezione dei Dati
+-------------------------
+
+SNAPSHOT
+Uno snapshot è una copia point-in-time dello stato di un volume o filesystem, creata quasi
+istantaneamente.
+
+Come funziona (Copy-on-Write):
+  1. Lo snapshot viene creato: inizialmente non consuma spazio aggiuntivo
+  2. Quando i dati originali vengono modificati, il valore precedente viene copiato nello spazio snapshot prima di essere sovrascritto
+  3. Lo snapshot consuma spazio solo per le modifiche effettuate dopo la sua creazione
+
+Casi d'uso:
+  - Recupero rapido da errori umani (file cancellati accidentalmente)
+  - Backup application-consistent (snapshot + backup)
+  - Testing e sviluppo (clone di produzione in secondi)
+  - Aggiornamenti OS/applicazioni (rollback immediato se qualcosa va storto)
+
+Limitazioni:
+  - Non è un sostituto del backup (risiede sullo stesso sistema)
+  - Consuma spazio nel tempo se i dati cambiano frequentemente
+
+BACKUP
+Un backup è una copia dei dati su un supporto separato (sistema diverso, posizione diversa).
+
+Tipi di backup:
+  Full         - Salva: tutti i dati         - Spazio: Alto   - Tempo backup: Lungo   - Tempo restore: Breve
+  Incremental  - Salva: modifiche dall'ultimo backup (full o incr.) - Spazio: Basso - Tempo backup: Breve - Tempo restore: Lungo (catena)
+  Differential - Salva: modifiche dall'ultimo full - Spazio: Medio - Tempo backup: Medio - Tempo restore: Medio
+  Synthetic Full - Salva: full costruito da full + incrementali (senza rileggere dati originali) - Spazio: Medio - Tempo backup: Breve - Tempo restore: Breve
+
+La Regola 3-2-1:
+Best practice fondamentale per la protezione dei dati:
+  - 3 copie dei dati
+  - Su 2 tipi di supporti diversi
+  - Con 1 copia offsite (remota o su cloud)
+
+Versione moderna 3-2-1-1-0:
+  - 3 copie, 2 tipi di supporti, 1 offsite, 1 copia offline/air-gapped, 0 errori verificati
+    (test periodico del restore)
+
+REPLICATION
+La replica crea una copia dei dati su un sistema remoto (sito di disaster recovery o cloud).
+
+Replica Sincrona:
+  - Ogni scrittura viene confermata solo dopo che i dati sono stati scritti sia sul sito primario che secondario
+  - RPO = 0 (nessuna perdita di dati)
+  - Richiede latenza di rete bassa (<5ms, idealmente <1ms)
+  - Impatto sulle performance (l'applicazione deve attendere)
+
+Replica Asincrona:
+  - Le scritture vengono confermate sul sito primario, poi replicate in background
+  - RPO > 0 (possibile perdita di dati pari al lag di replica)
+  - Funziona su reti WAN con alta latenza
+  - Minor impatto sulle performance
+  - Tipicamente usata per DR geograficamente distanti
+
+Business Continuity e Disaster Recovery (BC/DR):
+
+  RPO (Recovery Point Objective)   - Max perdita di dati tollerabile - Es: RPO = 1h → si può perdere al più 1h di dati
+  RTO (Recovery Time Objective)    - Max tempo per ripristinare il servizio - Es: RTO = 4h → deve essere operativo entro 4h
+  MTTR (Mean Time To Repair)       - Tempo medio per riparare un componente guasto - Indica velocità del team di supporto
+  MTBF (Mean Time Between Failures) - Tempo medio tra un guasto e il successivo - Indica affidabilità del sistema
+
+Tier DR:
+  Tape backup offsite      - Tecnologia: Tape backup      - RTO: Ore-giorni    - RPO: Ore-giorni  - Costo: Basso
+  Remote disk backup       - Tecnologia: Vaulting          - RTO: Ore           - RPO: Ore         - Costo: Medio
+  Async replication        - Tecnologia: Replica async     - RTO: Min-ore       - RPO: Minuti      - Costo: Medio-alto
+  Sync replication         - Tecnologia: Replica sincrona  - RTO: Minuti        - RPO: 0           - Costo: Alto
+  Active-Active            - Tecnologia: Cluster geo-distr.- RTO: Secondi       - RPO: 0           - Costo: Molto alto
+
+
+6.3 Sicurezza dei Dati
+------------------------
+
+CIFRATURA
+
+Encryption At-Rest:
+I dati vengono cifrati quando scritti su disco e decifrati quando letti.
+  - Self-Encrypting Drive (SED): il drive esegue la cifratura hardware
+  - Software encryption: eseguita dal controller o dal software storage (AES-256)
+  - Protegge contro il furto fisico dei drive
+
+Encryption In-Transit:
+I dati vengono cifrati durante la trasmissione in rete.
+  - TLS 1.2/1.3: per NFS, SMB, gestione web, REST API
+  - IPsec: per iSCSI e comunicazioni IP
+  - FC-SP-2 (Fibre Channel Security Protocol): per reti FC
+
+CONTROLLO DEGLI ACCESSI
+
+Autenticazione (verifica CHI sei):
+  - Username/Password
+  - MFA (Multi-Factor Authentication): password + token + biometria
+  - Kerberos: autenticazione sicura per NFSv4 e SMB
+  - Certificati digitali
+
+Autorizzazione (definisce COSA puoi fare):
+  - RBAC (Role-Based Access Control): permessi assegnati per ruolo
+  - ACL (Access Control List): permessi granulari per utente/gruppo su file e directory
+  - FC Zoning: limita quali HBA possono accedere a quali porte dello storage
+  - LUN Masking: limita quali server possono vedere quali LUN
+
+PROTEZIONE DAL RANSOMWARE
+Il ransomware è una minaccia critica per i sistemi di storage. Strategie di difesa:
+  - Immutable Snapshots (WORM): snapshot che non possono essere cancellati prima di una data di scadenza
+  - NetApp SnapLock: tecnologia WORM per dati regolamentati e protezione da ransomware
+  - Air-gapping: copia isolata senza connessione di rete
+  - Anomaly detection: identificazione di comportamenti anomali (es. cifratura massiva di file)
+  - Zero Trust Architecture: nessun utente o sistema è fidato di default
+
+AUDIT LOGGING
+  - Tracciamento di tutti gli accessi, modifiche e cancellazioni dei dati
+  - Fondamentale per la forensics in caso di incidente
+  - Richiesto dalle normative (GDPR, HIPAA, SOX)
+
+
+6.4 Data Governance, Risk & Compliance
+----------------------------------------
+
+DATA GOVERNANCE
+La data governance definisce chi è responsabile dei dati, come vengono gestiti e quali policy si
+applicano durante il loro ciclo di vita.
+
+Elementi chiave:
+  Data Ownership     - Chi è responsabile di un dataset specifico
+  Data Stewardship   - Chi gestisce operativamente qualità e accessi
+  Data Catalog       - Inventario centralizzato di tutti i dati aziendali
+  Data Classification - Categorizzazione per livello di sensibilità (Public, Internal, Confidential, Secret)
+  Data Lineage       - Tracciabilità di origine e trasformazioni dei dati
+  Retention Policy   - Per quanto tempo conservare ogni tipo di dato
+  Data Quality       - Monitoraggio e correzione della qualità dei dati
+
+RISK MANAGEMENT
+Il risk management identifica, valuta e mitiga i rischi legati ai dati:
+
+  1. Identificazione del rischio: quali rischi esistono? (perdita dati, breach, non-compliance)
+  2. Valutazione del rischio: qual è la probabilità e l'impatto?
+  3. Mitigazione del rischio: quali controlli implementare?
+  4. Monitoraggio del rischio: i controlli funzionano?
+
+Principali rischi dello storage:
+  - Perdita di dati (guasto hardware, errore umano, disastro)
+  - Data breach (accesso non autorizzato)
+  - Non conformità normativa (multe, danno reputazionale)
+  - Vendor lock-in
+  - Interruzione del servizio (ransomware, attacchi DDoS)
+
+COMPLIANCE
+La compliance garantisce che la gestione dei dati sia conforme alle normative applicabili.
+
+Principali normative:
+  GDPR (EU)      - Area: Privacy dati personali    - Requisiti: Residenza dati, diritto cancellazione, notifica breach
+  HIPAA (USA)    - Area: Dati sanitari             - Requisiti: Cifratura, controllo accessi, audit log, backup
+  SOX (USA)      - Area: Dati finanziari           - Requisiti: Integrità e immutabilità dei record finanziari
+  PCI-DSS        - Area: Dati carte di credito     - Requisiti: Cifratura, segmentazione rete, controllo accessi
+  ISO 27001      - Area: Sicurezza informazioni    - Requisiti: Framework globale per ISMS
+  NIS2 (EU)      - Area: Sicurezza reti e info     - Requisiti: Misure di sicurezza per infrastrutture critiche
+
+WORM - WRITE ONCE, READ MANY
+Tecnologia che garantisce l'immutabilità dei dati per il periodo definito dalla retention policy:
+  - I dati possono essere scritti una volta e non possono essere modificati o cancellati prima della scadenza
+  - Fondamentale per la conformità normativa
+  - NetApp SnapLock Compliance: la copia non può essere cancellata nemmeno dall'amministratore
+  - NetApp SnapLock Enterprise: consente all'amministratore di cancellare i dati in casi eccezionali
+
+
+========================================
+Fine del documento
+========================================
